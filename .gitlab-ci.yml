@@ -1,0 +1,21 @@
+image: node:15.5.1
+
+cache:
+  paths:
+    - node_modules/
+
+build_and_publish:
+  before_script:
+    - git config --global user.name "${GITLAB_USER_NAME}"
+    - git config --global user.email "${GITLAB_USER_EMAIL}"
+    - yarn
+  script:
+    - yarn build
+    - yarn publish --verbose --non-interactive
+  only:
+    refs:
+      - tags
+    variables:
+      - $CI_COMMIT_TAG =~ /^v\d+.\d+.\d+.*/
+  except:
+    - branches

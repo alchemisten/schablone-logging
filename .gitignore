@@ -1,0 +1,10 @@
+node_modules
+lib
+.idea
+.DS_Store
+git_push.sh
+.openapi-generator
+openapitools.json
+.openapi-generator-ignore
+.npmignore
+.cache

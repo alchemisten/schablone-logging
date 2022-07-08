@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"declaration": true,
+		"strict": true,
+		"alwaysStrict": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"baseUrl": ".",
+		"rootDir": "./src",
+		"outDir": "./lib",
+		"target": "ES2018",
+		"module": "CommonJS",
+		"moduleResolution": "node",
+		"types": ["node", "jest"]
+	},
+	"exclude": ["node_modules", "lib", "**/*.test.ts"]
+}
