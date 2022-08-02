@@ -1,21 +1,58 @@
-image: node:15.5.1
+image: node:16
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  GIT_CLONE_PATH: $CI_BUILDS_DIR/ci/$CI_PROJECT_PATH/$CI_COMMIT_REF_SLUG
 
 cache:
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
+    - lib/
 
-build_and_publish:
-  before_script:
-    - git config --global user.name "${GITLAB_USER_NAME}"
-    - git config --global user.email "${GITLAB_USER_EMAIL}"
-    - yarn
+before_script:
+  - npm config set always-auth true
+  - npm config set @alchemisten:registry=https://gitlab.com/api/v4/packages/npm/
+  - npm config set //gitlab.com/api/v4/packages/npm/:_authToken=${NPM_TOKEN}
+  - npm config set //gitlab.com/api/v4/projects/:_authToken=${NPM_TOKEN}
+
+stages:
+  - prepare
+  - test
+  - build
+  - version
+  - deploy
+
+install:
+  stage: prepare
+  script:
+    - yarn --frozen-lockfile
+
+build:
+  stage: build
   script:
     - yarn build
+
+lint:
+  stage: test
+  script:
+    - yarn lint
+
+test:
+  stage: test
+  script:
+    - yarn test
+
+version:
+  stage: version
+  script:
+    - npx semantic-release
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  script:
     - yarn publish --verbose --non-interactive
   only:
-    refs:
-      - tags
-    variables:
-      - $CI_COMMIT_TAG =~ /^v\d+.\d+.\d+.*/
-  except:
-    - branches
+    - main
