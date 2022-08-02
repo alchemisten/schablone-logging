@@ -15,5 +15,5 @@
         "moduleResolution": "node",
         "types": ["node", "jest"]
     },
-    "exclude": ["node_modules", "lib", "**/*.test.ts"]
+    "include": ["src"]
 }

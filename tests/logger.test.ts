@@ -13,7 +13,7 @@ describe('Base Logger', () => {
         logger = LoggerFactory({
             environment: 'local',
         });
-    })
+    });
 
     test('Fatal error', async () => {
         logger.fatal('A fatal error');
