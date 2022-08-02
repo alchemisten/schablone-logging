@@ -15,7 +15,7 @@
     },
     "dependencies": {},
     "devDependencies": {
-        "@alchemisten/eslint-config": "^1.1.0",
+        "@alchemisten/eslint-config": "^3.0.0",
         "@alchemisten/semantic-release": "0.0.0",
         "@types/jest": "^27.0.2",
         "@types/node": "^15.6.1",
