@@ -6,35 +6,33 @@ export interface LogEntry {
 
 export type LogCallback = (error?: unknown, level?: string, message?: string, meta?: unknown) => void;
 
+export type LogMetaInformation = Record<string, unknown>;
+
+export interface LogOptions {
+    callback?: LogCallback;
+    meta?: LogMetaInformation;
+    objects?: unknown | unknown[];
+    tags?: string[];
+}
+
 export interface LogMethod {
-    (level: string, message: string, callback: LogCallback): ILogger;
-    (level: string, message: string, meta: unknown, callback: LogCallback): ILogger;
-    (level: string, message: string, ...meta: unknown[]): ILogger;
-    (entry: LogEntry): ILogger;
-    (level: string, message: unknown): ILogger;
+    (level: string, message: string, options?: LogOptions): void;
 }
 
 export interface LeveledLogMethod {
-    (message: string, callback: LogCallback): ILogger;
-    (message: string, meta: unknown, callback: LogCallback): ILogger;
-    (message: string, ...meta: unknown[]): ILogger;
-    (message: unknown): ILogger;
-    (infoObject: unknown): ILogger;
+    (message: string, options?: LogOptions): void;
 }
 
 /**
  * Reduced interface for exchange ability
  */
 export interface ILogger {
-    child(options: unknown): ILogger;
-
     log: LogMethod;
 
+    fatal: LeveledLogMethod;
     error: LeveledLogMethod;
     warn: LeveledLogMethod;
     info: LeveledLogMethod;
-    http: LeveledLogMethod;
     debug: LeveledLogMethod;
-    verbose: LeveledLogMethod;
-    input: LeveledLogMethod;
+    trace: LeveledLogMethod;
 }
