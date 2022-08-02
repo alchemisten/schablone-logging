@@ -45,28 +45,35 @@ export class Logger implements ILogger {
 
         const tags = options?.tags ? `[${options?.tags?.join('|')}] ` : '';
         const log = `${tags}[${level.toUpperCase()}]: ${message}`;
+        const messageParts: [unknown] = [log];
+        if (options?.objects) {
+            messageParts.push(options.objects);
+        }
+        if (options?.error) {
+            messageParts.push(options.error);
+        }
 
         switch (level) {
             case 'fatal':
-                console.error(log, options?.objects);
+                console.error(...messageParts);
                 break;
             case 'error':
-                console.error(log, options?.objects);
+                console.error(...messageParts);
                 break;
             case 'warn':
-                console.warn(log, options?.objects);
+                console.warn(...messageParts);
                 break;
             case 'info':
-                console.info(log, options?.objects);
+                console.info(...messageParts);
                 break;
             case 'debug':
-                console.debug(log, options?.objects);
+                console.log(...messageParts);
                 break;
             case 'trace':
-                console.trace(log, options?.objects);
+                console.trace(...messageParts);
                 break;
             default:
-                console.log(log, options?.objects);
+                console.log(...messageParts);
                 break;
         }
         if (options?.callback) {
