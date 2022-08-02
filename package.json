@@ -13,11 +13,7 @@
         "format": "eslint . --fix",
         "test": "jest"
     },
-    "dependencies": {
-        "winston": "^3.5.1",
-        "logform": "^2.3.2",
-        "@sentry/node": "^6.17.4"
-    },
+    "dependencies": {},
     "devDependencies": {
         "@alchemisten/eslint-config": "^1.1.0",
         "@alchemisten/semantic-release": "0.0.0",
