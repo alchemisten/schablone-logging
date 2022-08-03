@@ -18,8 +18,8 @@ before_script:
 
 stages:
   - prepare
-  - lint
   - build
+  - lint
   - test
   - version
   - deploy
@@ -34,15 +34,15 @@ build:
   script:
     - yarn build
 
-lint:
-  stage: lint
-  script:
-    - yarn lint
-
 test:
   stage: test
   script:
     - yarn test
+
+lint:
+  stage: lint
+  script:
+    - yarn lint
 
 version:
   stage: version
