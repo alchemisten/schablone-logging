@@ -1,5 +1,5 @@
-import { Environment, ILogger, LoggerOptions, LogLevel, LogOptions } from '../types';
-import { EnvironmentWeight } from '../constants';
+import { Environment, ExecutionContext, ILogger, LoggerOptions, LogLevel, LogOptions } from '../types';
+import { Colored, EnvironmentWeight } from '../constants';
 
 export class Logger implements ILogger {
     private readonly environment: Environment = 'production';
@@ -13,7 +13,12 @@ export class Logger implements ILogger {
         trace: 'local',
     };
 
+    private readonly executionContext: ExecutionContext = 'browser';
+
     public constructor(options?: LoggerOptions) {
+        if (typeof window === 'undefined') {
+            this.executionContext = 'node';
+        }
         if (options?.environment) {
             this.environment = options.environment;
         }
@@ -45,7 +50,8 @@ export class Logger implements ILogger {
 
         const tags = options?.tags ? `[${options?.tags?.join('|')}] ` : '';
         const log = `${tags}[${level.toUpperCase()}]: ${message}`;
-        const messageParts: [unknown] = [log];
+        const color = Colored[this.executionContext][level];
+        const messageParts: [unknown] = [color(log)];
         if (options?.objects) {
             messageParts.push(options.objects);
         }

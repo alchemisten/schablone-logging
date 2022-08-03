@@ -1,3 +1,5 @@
+import { Instance } from 'chalk';
+
 export type LogCallback = (level?: string, message?: string, meta?: unknown, error?: unknown) => void;
 
 export type LogMetaInformation = Record<string, unknown>;
@@ -30,6 +32,16 @@ export interface LoggerOptions {
     environment?: Environment;
     environmentLevelMap?: EnvironmentLevelMap;
 }
+
+export type ExecutionContext = 'node' | 'browser';
+
+export type ColorLevelMap = {
+    [key in LogLevel]: (message: string) => string | Instance;
+};
+
+export type ExecutionContextColorMap = {
+    [key in ExecutionContext]: ColorLevelMap;
+};
 
 /**
  * Reduced interface for exchange ability
