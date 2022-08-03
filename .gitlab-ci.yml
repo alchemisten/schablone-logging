@@ -35,11 +35,15 @@ build:
 
 lint:
   stage: test
+  dependencies:
+    - build
   script:
     - yarn lint
 
 test:
   stage: test
+  dependencies:
+    - build
   script:
     - yarn test
 
