@@ -18,8 +18,8 @@ before_script:
 
 stages:
   - prepare
-  - test
   - build
+  - test
   - version
   - deploy
 
@@ -35,15 +35,11 @@ build:
 
 lint:
   stage: test
-  dependencies:
-    - build
   script:
     - yarn lint
 
 test:
   stage: test
-  dependencies:
-    - build
   script:
     - yarn test
 
