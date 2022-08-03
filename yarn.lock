@@ -11,10 +11,10 @@
     eslint-import-resolver-typescript "^2.5.0"
     eslint-plugin-import "^2.24.2"
 
-"@alchemisten/semantic-release@0.0.0":
-  version "0.0.0"
-  resolved "https://gitlab.com/api/v4/projects/24716935/packages/npm/@alchemisten/semantic-release/-/@alchemisten/semantic-release-0.0.0.tgz#c54b2869e015208103cac106b5329ce7591e1480"
-  integrity sha1-xUsoaeAVIIEDysEGtTKc51keFIA=
+"@alchemisten/semantic-release@^0.4.0":
+  version "0.4.0"
+  resolved "https://gitlab.com/api/v4/projects/37216974/packages/npm/@alchemisten/semantic-release/-/@alchemisten/semantic-release-0.4.0.tgz#b4e85957164ba4920ab4784d907aaa3e09a97226"
+  integrity sha1-tOhZVxZLpJIKtHhNkHqqPgmpciY=
   dependencies:
     "@saithodev/semantic-release-backmerge" "^2.1.2"
     "@semantic-release/exec" "^6.0.3"
@@ -6891,7 +6891,7 @@ selfsigned@^2.0.1:
   dependencies:
     node-forge "^1"
 
-semantic-release@>=13.0.0:
+semantic-release@>=13.0.0, semantic-release@^19.0.3:
   version "19.0.3"
   resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-19.0.3.tgz#9291053ad9890052f28e7c5921d4741530d516fd"
   integrity sha512-HaFbydST1cDKZHuFZxB8DTrBLJVK/AnDExpK0s3EqLIAAUAHUgnd+VSJCUtTYQKkAkauL8G9CucODrVCc7BuAA==
