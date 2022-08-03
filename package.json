@@ -9,7 +9,7 @@
         "lib"
     ],
     "scripts": {
-        "build": "npx rimraf lib && tsc",
+        "build": "rimraf lib && tsc",
         "watch": "tsc -w",
         "lint": "eslint . --max-warnings 0",
         "format": "eslint . --fix",

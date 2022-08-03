@@ -14,7 +14,7 @@ export const Colored: ExecutionContextColorMap = {
         fatal: (message: string) => chalk.hex('#CC0000').inverse.bold(message),
         error: (message: string) => chalk.hex('#FF0000')(message),
         warn: (message: string) => chalk.hex('#CCCC00')(message),
-        info: (message: string) => chalk.hex('#0000FF')(message),
+        info: (message: string) => chalk.hex('#4646fa')(message),
         debug: (message: string) => chalk.hex('#00FF00')(message),
         trace: (message: string) => chalk.hex('#00FFFF')(message),
     },

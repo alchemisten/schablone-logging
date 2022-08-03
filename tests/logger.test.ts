@@ -1,4 +1,4 @@
-import { Colored, ColorLevelMap, ILogger, LoggerFactory } from '../lib';
+import { Colored, ColorLevelMap, ILogger, LoggerFactory } from '../src';
 
 describe('Base Logger', () => {
     let logger: ILogger;

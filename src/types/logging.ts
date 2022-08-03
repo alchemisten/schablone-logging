@@ -53,4 +53,5 @@ export interface ILogger {
     info: LeveledLogMethod;
     debug: LeveledLogMethod;
     trace: LeveledLogMethod;
+    withOptions(options: Pick<LogOptions, 'tags' | 'meta' | 'callback'>): ILogger;
 }

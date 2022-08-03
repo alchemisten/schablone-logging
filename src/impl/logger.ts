@@ -98,4 +98,8 @@ export class Logger implements ILogger {
     private isRequiredEnvironment(level: LogLevel) {
         return EnvironmentWeight[this.environmentLevelMap[level]] <= EnvironmentWeight[this.environment];
     }
+
+    public withOptions(options: Pick<LogOptions, 'tags' | 'meta' | 'callback'>): ILogger {
+        throw new Error('Gordon implements that :)');
+    }
 }
