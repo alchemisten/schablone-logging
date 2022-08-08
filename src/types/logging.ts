@@ -14,10 +14,6 @@ export interface LogOptions {
 
 export type GlobalLogOptions = Pick<LogOptions, 'tags' | 'meta' | 'callback'>;
 
-export interface LogMethod {
-    (level: LogLevel, message: string, options?: LogOptions): void;
-}
-
 export interface LeveledLogMethod {
     (message: string, options?: LogOptions): void;
 }
