@@ -1,5 +1,6 @@
 import { deepmerge } from 'deepmerge-ts';
 import {
+    CallbackData,
     Environment,
     ExecutionContext,
     GlobalLogOptions,
@@ -71,12 +72,13 @@ export class Logger implements ILogger {
             tagList = [...tagList, ...options.tags];
         }
         const tags = tagList.length > 0 ? `[${tagList.join('|')}] ` : '';
+
         const log = `${tags}[${level.toUpperCase()}]: ${message}`;
+
         const color = Colored[this.executionContext][level];
-        const meta: LogMetaInformation = {
-            ...this.globalLogOptions.meta,
-            ...options?.meta,
-        };
+
+        const meta: LogMetaInformation | undefined = deepmerge(this.globalLogOptions.meta, options?.meta);
+
         const messageParts: [unknown] = [color(log)];
         if (options?.objects) {
             messageParts.push(options.objects);
@@ -108,10 +110,23 @@ export class Logger implements ILogger {
                 console.log(...messageParts);
                 break;
         }
+        const callbackData: CallbackData = {
+            level,
+            message,
+        };
+        if (meta) {
+            callbackData.meta = meta;
+        }
+        if (options?.error) {
+            callbackData.error = options?.error;
+        }
+        if (options?.objects) {
+            callbackData.objects = options.objects;
+        }
         if (options?.callback) {
-            options.callback(level, message, meta, options?.error);
+            options.callback(callbackData);
         } else if (this.globalLogOptions.callback) {
-            this.globalLogOptions.callback(level, message, meta, options?.error);
+            this.globalLogOptions.callback(callbackData);
         }
     }
 

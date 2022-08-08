@@ -1,6 +1,14 @@
 import { Instance } from 'chalk';
 
-export type LogCallback = (level?: string, message?: string, meta?: unknown, error?: unknown) => void;
+export interface CallbackData {
+    error?: unknown;
+    level?: string;
+    message?: string;
+    meta?: unknown;
+    objects?: unknown | unknown[];
+}
+
+export type LogCallback = (data: CallbackData) => void;
 
 export type LogMetaInformation = Record<string, unknown>;
 

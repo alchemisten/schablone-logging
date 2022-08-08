@@ -1,8 +1,8 @@
 var logger = alcm.logger.LoggerFactory({
     environment: 'local',
     globalLogOptions: {
-        callback: function(level, message, meta, error) {
-            console.log('I am the global callback, this is what I have: ', level, message, meta, error);
+        callback: function(data) {
+            console.log('I am the global callback, this is what I have: ', data);
         },
         meta: {
             global: true
@@ -25,8 +25,8 @@ logger.info('Option demo', {
     meta: {
         log: 'The example page'
     },
-    callback: function(level, message, meta, error) {
-        console.log('I am a message callback, this is what I have: ', level, message, meta, error);
+    callback: function(data) {
+        console.log('I am a message callback, this is what I have: ', data);
     }
 });
 
@@ -38,8 +38,8 @@ var childLogger = logger.withOptions({
         trace: 'staging'
     },
     globalLogOptions: {
-        callback: function(level, message, meta, error) {
-            console.log('I am the child callback, this is what I have: ', level, message, meta, error);
+        callback: function(data) {
+            console.log('I am the child callback, this is what I have: ', data);
         },
         meta: {
             child: true,
@@ -62,7 +62,7 @@ childLogger.info('Option demo', {
     meta: {
         log: 'The example page'
     },
-    callback: function(level, message, meta, error) {
-        console.log('I am a child message callback, this is what I have: ', level, message, meta, error);
+    callback: function(data) {
+        console.log('I am a child message callback, this is what I have: ', data);
     }
 });
