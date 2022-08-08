@@ -10,8 +10,7 @@ stages:
   - build
   - lint
   - test
-  - version
-  - deploy
+  - release
 
 install:
   stage: prepare
@@ -33,12 +32,5 @@ test:
     - yarn test
 
 version:
-  stage: version
+  stage: release
   extends: .semantic_release
-
-deploy:
-  stage: deploy
-  script:
-    - yarn publish --verbose --non-interactive
-  only:
-    - main
