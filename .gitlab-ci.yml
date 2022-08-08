@@ -1,21 +1,44 @@
-image: node:15.5.1
+image: node:16
 
-cache:
-  paths:
-    - node_modules/
+include:
+  - project: alchemisten/devops
+    ref: main
+    file: /ci/base.yml
 
-build_and_publish:
-  before_script:
-    - git config --global user.name "${GITLAB_USER_NAME}"
-    - git config --global user.email "${GITLAB_USER_EMAIL}"
-    - yarn
+stages:
+  - prepare
+  - build
+  - lint
+  - test
+  - version
+  - deploy
+
+install:
+  stage: prepare
+  extends: .npm_install
+
+build:
+  stage: build
   script:
     - yarn build
+
+lint:
+  stage: lint
+  script:
+    - yarn lint
+
+test:
+  stage: test
+  script:
+    - yarn test
+
+version:
+  stage: version
+  extends: .semantic_release
+
+deploy:
+  stage: deploy
+  script:
     - yarn publish --verbose --non-interactive
   only:
-    refs:
-      - tags
-    variables:
-      - $CI_COMMIT_TAG =~ /^v\d+.\d+.\d+.*/
-  except:
-    - branches
+    - main

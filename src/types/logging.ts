@@ -1,40 +1,64 @@
-export interface LogEntry {
-    level: string;
-    message: string;
-    [optionName: string]: unknown;
+import { Instance } from 'chalk';
+
+export interface CallbackData {
+    error?: unknown;
+    level?: string;
+    message?: string;
+    meta?: unknown;
+    objects?: unknown | unknown[];
 }
 
-export type LogCallback = (error?: unknown, level?: string, message?: string, meta?: unknown) => void;
+export type LogCallback = (data: CallbackData) => void;
 
-export interface LogMethod {
-    (level: string, message: string, callback: LogCallback): ILogger;
-    (level: string, message: string, meta: unknown, callback: LogCallback): ILogger;
-    (level: string, message: string, ...meta: unknown[]): ILogger;
-    (entry: LogEntry): ILogger;
-    (level: string, message: unknown): ILogger;
+export type LogMetaInformation = Record<string, unknown>;
+
+export interface LogOptions {
+    callback?: LogCallback;
+    meta?: LogMetaInformation;
+    objects?: unknown | unknown[];
+    tags?: string[];
+    error?: unknown;
 }
+
+export type GlobalLogOptions = Pick<LogOptions, 'tags' | 'meta' | 'callback'>;
 
 export interface LeveledLogMethod {
-    (message: string, callback: LogCallback): ILogger;
-    (message: string, meta: unknown, callback: LogCallback): ILogger;
-    (message: string, ...meta: unknown[]): ILogger;
-    (message: unknown): ILogger;
-    (infoObject: unknown): ILogger;
+    (message: string, options?: LogOptions): void;
 }
+
+export type LogLevel = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
+
+export type Environment = 'local' | 'develop' | 'staging' | 'production';
+
+export type EnvironmentLevelMap = {
+    [key in LogLevel]?: Environment;
+};
+
+export interface LoggerOptions {
+    environment?: Environment;
+    environmentLevelMap?: EnvironmentLevelMap;
+    globalLogOptions?: Pick<LogOptions, 'tags' | 'meta' | 'callback'>;
+}
+
+export type ExecutionContext = 'node' | 'browser';
+
+export type ColorLevelMap = {
+    [key in LogLevel]: (message: string) => string | Instance;
+};
+
+export type ExecutionContextColorMap = {
+    [key in ExecutionContext]: ColorLevelMap;
+};
 
 /**
  * Reduced interface for exchange ability
  */
 export interface ILogger {
-    child(options: unknown): ILogger;
-
-    log: LogMethod;
-
+    fatal: LeveledLogMethod;
     error: LeveledLogMethod;
     warn: LeveledLogMethod;
     info: LeveledLogMethod;
-    http: LeveledLogMethod;
     debug: LeveledLogMethod;
-    verbose: LeveledLogMethod;
-    input: LeveledLogMethod;
+    trace: LeveledLogMethod;
+    withOptions(options: LoggerOptions): ILogger;
 }
