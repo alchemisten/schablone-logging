@@ -1,6 +1,6 @@
 {
     "name": "@alchemisten/logging",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "repository": "https://gitlab.com/alchemisten/internal/packages/logging",
     "author": "Alchemisten AG",
     "main": "lib/index.js",
