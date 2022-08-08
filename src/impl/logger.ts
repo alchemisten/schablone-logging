@@ -1,32 +1,24 @@
 import { deepmerge } from 'deepmerge-ts';
 import {
-    CallbackData,
     Environment,
     ExecutionContext,
     GlobalLogOptions,
     ILogger,
+    ITransport,
     LoggerOptions,
     LogLevel,
-    LogMetaInformation,
     LogOptions,
 } from '../types';
-import { Colored, EnvironmentWeight } from '../constants';
+import { ConsoleTransport } from './transports';
 
 export class Logger implements ILogger {
     private readonly environment: Environment = 'production';
 
-    private readonly environmentLevelMap: { [key in LogLevel]: Environment } = {
-        fatal: 'production',
-        error: 'production',
-        warn: 'production',
-        info: 'staging',
-        debug: 'develop',
-        trace: 'local',
-    };
-
     private readonly executionContext: ExecutionContext = 'browser';
 
     private readonly globalLogOptions: GlobalLogOptions = {};
+
+    private readonly transports: ITransport[] = [];
 
     public constructor(options?: LoggerOptions) {
         if (typeof window === 'undefined') {
@@ -35,11 +27,18 @@ export class Logger implements ILogger {
         if (options?.environment) {
             this.environment = options.environment;
         }
-        if (options?.environmentLevelMap) {
-            this.environmentLevelMap = { ...this.environmentLevelMap, ...options.environmentLevelMap };
-        }
         if (options?.globalLogOptions) {
             this.globalLogOptions = options.globalLogOptions;
+        }
+        if (options?.transports && options.transports.length > 0) {
+            options.transports.forEach((transport) => {
+                transport.setup(this.executionContext, this.environment, this.globalLogOptions);
+                this.transports.push(transport);
+            });
+        } else {
+            const defaultTransport = new ConsoleTransport();
+            defaultTransport.setup(this.executionContext, this.environment, this.globalLogOptions);
+            this.transports.push(defaultTransport);
         }
     }
 
@@ -60,74 +59,9 @@ export class Logger implements ILogger {
     }
 
     private log(level: LogLevel, message: string, options?: LogOptions): void {
-        if (!this.isRequiredEnvironment(level)) {
-            return;
-        }
-
-        let tagList: string[] = [];
-        if (this.globalLogOptions.tags) {
-            tagList = [...this.globalLogOptions.tags];
-        }
-        if (options?.tags) {
-            tagList = [...tagList, ...options.tags];
-        }
-        const tags = tagList.length > 0 ? `[${tagList.join('|')}] ` : '';
-
-        const log = `${tags}[${level.toUpperCase()}]: ${message}`;
-
-        const color = Colored[this.executionContext][level];
-
-        const meta: LogMetaInformation | undefined = deepmerge(this.globalLogOptions.meta, options?.meta);
-
-        const messageParts: [unknown] = [color(log)];
-        if (options?.objects) {
-            messageParts.push(options.objects);
-        }
-        if (options?.error) {
-            messageParts.push(options.error);
-        }
-
-        switch (level) {
-            case 'fatal':
-                console.error(...messageParts);
-                break;
-            case 'error':
-                console.error(...messageParts);
-                break;
-            case 'warn':
-                console.warn(...messageParts);
-                break;
-            case 'info':
-                console.info(...messageParts);
-                break;
-            case 'debug':
-                console.log(...messageParts);
-                break;
-            case 'trace':
-                console.trace(...messageParts);
-                break;
-            default:
-                console.log(...messageParts);
-                break;
-        }
-        const callbackData: CallbackData = {
-            level,
-            message,
-        };
-        if (meta) {
-            callbackData.meta = meta;
-        }
-        if (options?.error) {
-            callbackData.error = options?.error;
-        }
-        if (options?.objects) {
-            callbackData.objects = options.objects;
-        }
-        if (options?.callback) {
-            options.callback(callbackData);
-        } else if (this.globalLogOptions.callback) {
-            this.globalLogOptions.callback(callbackData);
-        }
+        this.transports.forEach((transport) => {
+            transport.send(level, message, options);
+        });
     }
 
     public trace(message: string, options?: LogOptions): void {
@@ -141,14 +75,11 @@ export class Logger implements ILogger {
     public withOptions(options: LoggerOptions): ILogger {
         return new Logger({
             environment: options?.environment ?? this.environment,
-            environmentLevelMap: options?.environmentLevelMap ?? this.environmentLevelMap,
             globalLogOptions: options?.globalLogOptions
                 ? deepmerge(this.globalLogOptions, options?.globalLogOptions)
                 : this.globalLogOptions,
+            transports: deepmerge(this.transports, options?.transports ?? []),
+            // TODO: Tags can appear duplicated on child loggers
         });
-    }
-
-    private isRequiredEnvironment(level: LogLevel) {
-        return EnvironmentWeight[this.environmentLevelMap[level]] <= EnvironmentWeight[this.environment];
     }
 }

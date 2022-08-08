@@ -1,11 +1,12 @@
 import chalk from 'chalk';
-import { Environment, ExecutionContextColorMap } from './types';
+import { Environment, ExecutionContextColorMap, LogLevel } from './types';
 
 export const EnvironmentWeight: Record<Environment, number> = {
     production: 0,
     staging: 10,
     develop: 20,
     local: 30,
+    never: 100,
 };
 
 export const Colored: ExecutionContextColorMap = {
@@ -26,4 +27,12 @@ export const Colored: ExecutionContextColorMap = {
         debug: (message: string) => message,
         trace: (message: string) => message,
     },
+};
+
+export const isRequiredEnvironment = (
+    level: LogLevel,
+    environmentLevelMap: { [key in LogLevel]: Environment },
+    environment: Environment
+): boolean => {
+    return EnvironmentWeight[environmentLevelMap[level]] <= EnvironmentWeight[environment];
 };

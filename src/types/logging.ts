@@ -28,7 +28,7 @@ export interface LeveledLogMethod {
 
 export type LogLevel = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
 
-export type Environment = 'local' | 'develop' | 'staging' | 'production';
+export type Environment = 'never' | 'local' | 'develop' | 'staging' | 'production';
 
 export type EnvironmentLevelMap = {
     [key in LogLevel]?: Environment;
@@ -36,8 +36,8 @@ export type EnvironmentLevelMap = {
 
 export interface LoggerOptions {
     environment?: Environment;
-    environmentLevelMap?: EnvironmentLevelMap;
-    globalLogOptions?: Pick<LogOptions, 'tags' | 'meta' | 'callback'>;
+    globalLogOptions?: GlobalLogOptions;
+    transports?: ITransport[];
 }
 
 export type ExecutionContext = 'node' | 'browser';
@@ -61,4 +61,14 @@ export interface ILogger {
     debug: LeveledLogMethod;
     trace: LeveledLogMethod;
     withOptions(options: LoggerOptions): ILogger;
+}
+
+export interface TransportOptions {
+    environmentLevelMap?: EnvironmentLevelMap;
+    transportLogOptions?: GlobalLogOptions;
+}
+
+export interface ITransport {
+    send: (level: LogLevel, message: string, options?: LogOptions) => void;
+    setup: (executionContext: ExecutionContext, environment: Environment, globalLogOptions: GlobalLogOptions) => void;
 }
