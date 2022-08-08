@@ -1,20 +1,9 @@
 image: node:16
 
-variables:
-  GIT_SUBMODULE_STRATEGY: recursive
-  GIT_CLONE_PATH: $CI_BUILDS_DIR/ci/$CI_PROJECT_PATH/$CI_COMMIT_REF_SLUG
-
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - node_modules/
-    - lib/
-
-before_script:
-  - npm config set always-auth true
-  - npm config set @alchemisten:registry=https://gitlab.com/api/v4/packages/npm/
-  - npm config set //gitlab.com/api/v4/packages/npm/:_authToken=${NPM_TOKEN}
-  - npm config set //gitlab.com/api/v4/projects/:_authToken=${NPM_TOKEN}
+include:
+  - project: alchemisten/devops
+    ref: main
+    file: /ci/base.yml
 
 stages:
   - prepare
@@ -26,30 +15,26 @@ stages:
 
 install:
   stage: prepare
-  script:
-    - yarn --frozen-lockfile
+  extends: .npm_install
 
 build:
   stage: build
   script:
     - yarn build
 
-test:
-  stage: test
-  script:
-    - yarn test
-
 lint:
   stage: lint
   script:
     - yarn lint
 
+test:
+  stage: test
+  script:
+    - yarn test
+
 version:
   stage: version
-  script:
-    - npx semantic-release
-  only:
-    - main
+  extends: .semantic_release
 
 deploy:
   stage: deploy
