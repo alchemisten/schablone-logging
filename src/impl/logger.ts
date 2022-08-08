@@ -1,4 +1,14 @@
-import { Environment, ExecutionContext, ILogger, LoggerOptions, LogLevel, LogOptions } from '../types';
+import { deepmerge } from 'deepmerge-ts';
+import {
+    Environment,
+    ExecutionContext,
+    GlobalLogOptions,
+    ILogger,
+    LoggerOptions,
+    LogLevel,
+    LogMetaInformation,
+    LogOptions,
+} from '../types';
 import { Colored, EnvironmentWeight } from '../constants';
 
 export class Logger implements ILogger {
@@ -15,6 +25,8 @@ export class Logger implements ILogger {
 
     private readonly executionContext: ExecutionContext = 'browser';
 
+    private readonly globalLogOptions: GlobalLogOptions = {};
+
     public constructor(options?: LoggerOptions) {
         if (typeof window === 'undefined') {
             this.executionContext = 'node';
@@ -24,6 +36,9 @@ export class Logger implements ILogger {
         }
         if (options?.environmentLevelMap) {
             this.environmentLevelMap = { ...this.environmentLevelMap, ...options.environmentLevelMap };
+        }
+        if (options?.globalLogOptions) {
+            this.globalLogOptions = options.globalLogOptions;
         }
     }
 
@@ -48,9 +63,20 @@ export class Logger implements ILogger {
             return;
         }
 
-        const tags = options?.tags ? `[${options?.tags?.join('|')}] ` : '';
+        let tagList: string[] = [];
+        if (this.globalLogOptions.tags) {
+            tagList = [...this.globalLogOptions.tags];
+        }
+        if (options?.tags) {
+            tagList = [...tagList, ...options.tags];
+        }
+        const tags = tagList.length > 0 ? `[${tagList.join('|')}] ` : '';
         const log = `${tags}[${level.toUpperCase()}]: ${message}`;
         const color = Colored[this.executionContext][level];
+        const meta: LogMetaInformation = {
+            ...this.globalLogOptions.meta,
+            ...options?.meta,
+        };
         const messageParts: [unknown] = [color(log)];
         if (options?.objects) {
             messageParts.push(options.objects);
@@ -83,7 +109,9 @@ export class Logger implements ILogger {
                 break;
         }
         if (options?.callback) {
-            options.callback(level, message, options?.meta, options?.error);
+            options.callback(level, message, meta, options?.error);
+        } else if (this.globalLogOptions.callback) {
+            this.globalLogOptions.callback(level, message, meta, options?.error);
         }
     }
 
@@ -95,11 +123,17 @@ export class Logger implements ILogger {
         this.log('warn', message, options);
     }
 
-    private isRequiredEnvironment(level: LogLevel) {
-        return EnvironmentWeight[this.environmentLevelMap[level]] <= EnvironmentWeight[this.environment];
+    public withOptions(options: LoggerOptions): ILogger {
+        return new Logger({
+            environment: options?.environment ?? this.environment,
+            environmentLevelMap: options?.environmentLevelMap ?? this.environmentLevelMap,
+            globalLogOptions: options?.globalLogOptions
+                ? deepmerge(this.globalLogOptions, options?.globalLogOptions)
+                : this.globalLogOptions,
+        });
     }
 
-    public withOptions(options: Pick<LogOptions, 'tags' | 'meta' | 'callback'>): ILogger {
-        throw new Error('Gordon implements that :)');
+    private isRequiredEnvironment(level: LogLevel) {
+        return EnvironmentWeight[this.environmentLevelMap[level]] <= EnvironmentWeight[this.environment];
     }
 }

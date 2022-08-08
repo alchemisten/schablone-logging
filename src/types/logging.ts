@@ -12,6 +12,8 @@ export interface LogOptions {
     error?: unknown;
 }
 
+export type GlobalLogOptions = Pick<LogOptions, 'tags' | 'meta' | 'callback'>;
+
 export interface LogMethod {
     (level: LogLevel, message: string, options?: LogOptions): void;
 }
@@ -31,6 +33,7 @@ export type EnvironmentLevelMap = {
 export interface LoggerOptions {
     environment?: Environment;
     environmentLevelMap?: EnvironmentLevelMap;
+    globalLogOptions?: Pick<LogOptions, 'tags' | 'meta' | 'callback'>;
 }
 
 export type ExecutionContext = 'node' | 'browser';
@@ -53,5 +56,5 @@ export interface ILogger {
     info: LeveledLogMethod;
     debug: LeveledLogMethod;
     trace: LeveledLogMethod;
-    withOptions(options: Pick<LogOptions, 'tags' | 'meta' | 'callback'>): ILogger;
+    withOptions(options: LoggerOptions): ILogger;
 }
