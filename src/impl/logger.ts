@@ -79,7 +79,6 @@ export class Logger implements ILogger {
                 ? deepmerge(this.globalLogOptions, options?.globalLogOptions)
                 : this.globalLogOptions,
             transports: deepmerge(this.transports, options?.transports ?? []),
-            // TODO: Tags can appear duplicated on child loggers
         });
     }
 }

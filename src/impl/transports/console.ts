@@ -49,7 +49,10 @@ export class ConsoleTransport implements ITransport {
         if (options?.tags) {
             tagList = [...tagList, ...options.tags];
         }
-        const tags = tagList.length > 0 ? `[${tagList.join('|')}] ` : '';
+        const tags =
+            tagList.length > 0
+                ? `[${tagList.filter((value, index, self) => self.indexOf(value) === index).join('|')}] `
+                : '';
 
         const log = `${tags}[${level.toUpperCase()}]: ${message}`;
 
