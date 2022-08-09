@@ -1,5 +1,3 @@
-import { Instance } from 'chalk';
-
 export interface CallbackData {
     error?: unknown;
     level?: string;
@@ -43,7 +41,7 @@ export interface LoggerOptions {
 export type ExecutionContext = 'node' | 'browser';
 
 export type ColorLevelMap = {
-    [key in LogLevel]: (message: string) => string | Instance;
+    [key in LogLevel]: (message: string) => string;
 };
 
 export type ExecutionContextColorMap = {

@@ -117,6 +117,7 @@ export class ConsoleTransport implements ITransport {
         globalLogOptions: GlobalLogOptions
     ): void {
         this.environment = environment;
+        this.executionContext = executionContext;
         this.transportLogOptions = deepmerge(globalLogOptions, this.transportLogOptions);
     }
 }
