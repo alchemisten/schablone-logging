@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { Environment, ExecutionContextColorMap, LogLevel } from './types';
+import { Environment, ExecutionContextColorMap, LogLevel, SentryLogLevelMap } from './types';
 
 export const EnvironmentWeight: Record<Environment, number> = {
     production: 0,
@@ -27,6 +27,15 @@ export const Colored: ExecutionContextColorMap = {
         debug: (message: string) => message,
         trace: (message: string) => message,
     },
+};
+
+export const SentryLogMap: SentryLogLevelMap = {
+    fatal: 'fatal',
+    error: 'error',
+    warn: 'warning',
+    info: 'info',
+    debug: 'debug',
+    trace: 'debug',
 };
 
 export const isRequiredEnvironment = (

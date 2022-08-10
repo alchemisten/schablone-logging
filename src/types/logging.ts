@@ -1,3 +1,6 @@
+import type { SeverityLevel } from '@sentry/types/types/severity';
+import type { Hub } from '@sentry/types';
+
 export interface CallbackData {
     error?: unknown;
     level?: string;
@@ -66,7 +69,25 @@ export interface TransportOptions {
     transportLogOptions?: GlobalLogOptions;
 }
 
+export interface SentryConfig {
+    dsn: string;
+    release?: string;
+    tracesSampleRate?: number;
+}
+
+export interface SentryTransportOptions extends TransportOptions {
+    sentryConfig: SentryConfig;
+}
+
 export interface ITransport {
     send: (level: LogLevel, message: string, options?: LogOptions) => void;
     setup: (executionContext: ExecutionContext, environment: Environment, globalLogOptions: GlobalLogOptions) => void;
 }
+
+export type SentryLogLevelMap = {
+    [key in LogLevel]: SeverityLevel;
+};
+
+export type SentrySdk = Hub & {
+    init: (sentryConfig: SentryConfig) => void;
+};

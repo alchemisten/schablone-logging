@@ -23,6 +23,9 @@
     "devDependencies": {
         "@alchemisten/eslint-config": "^3.0.0",
         "@alchemisten/semantic-release": "^0.4.0",
+        "@sentry/browser": "^7.9.0",
+        "@sentry/node": "^7.9.0",
+        "@sentry/types": "^7.9.0",
         "@types/jest": "^28.1.6",
         "@types/node": "^16.11.7",
         "eslint": "^7.32.0",
@@ -39,5 +42,9 @@
         "webpack-cli": "^4.10.0",
         "webpack-dev-server": "^4.9.3",
         "webpack-merge": "^5.8.0"
+    },
+    "optionalDependencies": {
+        "@sentry/browser": "^7.9.0",
+        "@sentry/node": "^7.9.0"
     }
 }

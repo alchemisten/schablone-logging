@@ -5,9 +5,9 @@ var logger = alcm.logger.LoggerFactory({
             console.log('I am the global callback, this is what I have: ', data);
         },
         meta: {
-            global: true
+            global: true,
         },
-        tags: ['Global Tag']
+        tags: ['Global Tag'],
     }
 });
 
@@ -23,7 +23,7 @@ logger.info('Option demo', {
     error: new Error('Shit happened'),
     tags: ['Log 4 Life','Bob'],
     meta: {
-        log: 'The example page'
+        log: 'The example page',
     },
     callback: function(data) {
         console.log('I am a message callback, this is what I have: ', data);
@@ -31,11 +31,11 @@ logger.info('Option demo', {
 });
 
 
-
+// Child logger
 var childLogger = logger.withOptions({
     environment: 'staging',
     environmentLevelMap: {
-        trace: 'staging'
+        trace: 'staging',
     },
     globalLogOptions: {
         callback: function(data) {
@@ -44,7 +44,7 @@ var childLogger = logger.withOptions({
         meta: {
             child: true,
         },
-        tags: ['Child Tag']
+        tags: ['Child Tag'],
     }
 });
 
@@ -60,9 +60,9 @@ childLogger.info('Option demo', {
     error: new Error('Shit happened'),
     tags: ['Log 4 Life','Bob'],
     meta: {
-        log: 'The example page'
+        log: 'The example page',
     },
     callback: function(data) {
         console.log('I am a child message callback, this is what I have: ', data);
-    }
+    },
 });
