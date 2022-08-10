@@ -1,7 +1,7 @@
 {
-	"name": "@alchemisten/logging",
-	"version": "0.0.0",
-	"peerDependencies": {
-		"@sentry/types": "^7.9.0"
-	}
+  "name": "@alchemisten/logging",
+  "version": "0.0.0",
+  "peerDependencies": {
+    "@sentry/types": "^7.9.0"
+  }
 }

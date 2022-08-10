@@ -1,9 +1,9 @@
 {
-	"$schema": "./node_modules/nx/schemas/workspace-schema.json",
-	"version": 2,
-	"projects": {
-		"logging": "libs/logging",
-		"logging-react-test": "apps/logging-react-test",
-		"logging-transport-sentry-browser": "libs/logging-transport-sentry-browser"
-	}
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "logging": "libs/logging",
+    "logging-react-test": "apps/logging-react-test",
+    "logging-transport-sentry-browser": "libs/logging-transport-sentry-browser"
+  }
 }
