@@ -1,50 +1,50 @@
-import {Colored, ColorLevelMap, ILogger, LoggerFactory} from "@alchemisten/logging";
+import { Colored, ColorLevelMap, ILogger, LoggerFactory } from '@alchemisten/logging';
 
 describe('Base Logger', () => {
-    let logger: ILogger;
-    let color: ColorLevelMap;
+  let logger: ILogger;
+  let color: ColorLevelMap;
 
-    beforeAll(() => {
-        console.error = jest.fn();
-        console.warn = jest.fn();
-        console.info = jest.fn();
-        console.log = jest.fn();
-        console.trace = jest.fn();
+  beforeAll(() => {
+    console.error = jest.fn();
+    console.warn = jest.fn();
+    console.info = jest.fn();
+    console.log = jest.fn();
+    console.trace = jest.fn();
 
-        logger = LoggerFactory({
-            environment: 'local',
-        });
-
-        color = Colored.node;
+    logger = LoggerFactory({
+      environment: 'local',
     });
 
-    test('Fatal error', async () => {
-        logger.fatal('A fatal error');
-        expect(console.error).toHaveBeenCalledWith(color.fatal('[FATAL]: A fatal error'));
-    });
+    color = Colored.node;
+  });
 
-    test('Error', async () => {
-        logger.error('An error');
-        expect(console.error).toHaveBeenCalledWith(color.error('[ERROR]: An error'));
-    });
+  test('Fatal error', async () => {
+    logger.fatal('A fatal error');
+    expect(console.error).toHaveBeenCalledWith(color.fatal('[FATAL]: A fatal error'));
+  });
 
-    test('Warning', async () => {
-        logger.warn('A warning');
-        expect(console.warn).toHaveBeenCalledWith(color.warn('[WARN]: A warning'));
-    });
+  test('Error', async () => {
+    logger.error('An error');
+    expect(console.error).toHaveBeenCalledWith(color.error('[ERROR]: An error'));
+  });
 
-    test('Info', async () => {
-        logger.info('An information');
-        expect(console.info).toHaveBeenCalledWith(color.info('[INFO]: An information'));
-    });
+  test('Warning', async () => {
+    logger.warn('A warning');
+    expect(console.warn).toHaveBeenCalledWith(color.warn('[WARN]: A warning'));
+  });
 
-    test('Debug', async () => {
-        logger.debug('A debug message');
-        expect(console.log).toHaveBeenCalledWith(color.debug('[DEBUG]: A debug message'));
-    });
+  test('Info', async () => {
+    logger.info('An information');
+    expect(console.info).toHaveBeenCalledWith(color.info('[INFO]: An information'));
+  });
 
-    test('Trace', async () => {
-        logger.trace('A trace');
-        expect(console.trace).toHaveBeenCalledWith(color.trace('[TRACE]: A trace'));
-    });
+  test('Debug', async () => {
+    logger.debug('A debug message');
+    expect(console.log).toHaveBeenCalledWith(color.debug('[DEBUG]: A debug message'));
+  });
+
+  test('Trace', async () => {
+    logger.trace('A trace');
+    expect(console.trace).toHaveBeenCalledWith(color.trace('[TRACE]: A trace'));
+  });
 });

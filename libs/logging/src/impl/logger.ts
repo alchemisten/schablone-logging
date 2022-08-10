@@ -1,84 +1,84 @@
 import { deepmerge } from 'deepmerge-ts';
 import {
-    Environment,
-    ExecutionContext,
-    GlobalLogOptions,
-    ILogger,
-    ITransport,
-    LoggerOptions,
-    LogLevel,
-    LogOptions,
+  Environment,
+  ExecutionContext,
+  GlobalLogOptions,
+  ILogger,
+  ITransport,
+  LoggerOptions,
+  LogLevel,
+  LogOptions,
 } from '../types';
 import { ConsoleTransport } from './transports';
 
 export class Logger implements ILogger {
-    private readonly environment: Environment = 'production';
+  private readonly environment: Environment = 'production';
 
-    private readonly executionContext: ExecutionContext = 'browser';
+  private readonly executionContext: ExecutionContext = 'browser';
 
-    private readonly globalLogOptions: GlobalLogOptions = {};
+  private readonly globalLogOptions: GlobalLogOptions = {};
 
-    private readonly transports: ITransport[] = [];
+  private readonly transports: ITransport[] = [];
 
-    public constructor(options?: LoggerOptions) {
-        if (typeof window === 'undefined') {
-            this.executionContext = 'node';
-        }
-        if (options?.environment) {
-            this.environment = options.environment;
-        }
-        if (options?.globalLogOptions) {
-            this.globalLogOptions = options.globalLogOptions;
-        }
-        if (options?.transports && options.transports.length > 0) {
-            options.transports.forEach((transport) => {
-                transport.setup(this.executionContext, this.environment, this.globalLogOptions);
-                this.transports.push(transport);
-            });
-        } else {
-            const defaultTransport = new ConsoleTransport();
-            defaultTransport.setup(this.executionContext, this.environment, this.globalLogOptions);
-            this.transports.push(defaultTransport);
-        }
+  public constructor(options?: LoggerOptions) {
+    if (typeof window === 'undefined') {
+      this.executionContext = 'node';
     }
-
-    public debug(message: string, options?: LogOptions): void {
-        this.log('debug', message, options);
+    if (options?.environment) {
+      this.environment = options.environment;
     }
-
-    public error(message: string, options?: LogOptions): void {
-        this.log('error', message, options);
+    if (options?.globalLogOptions) {
+      this.globalLogOptions = options.globalLogOptions;
     }
-
-    public fatal(message: string, options?: LogOptions): void {
-        this.log('fatal', message, options);
+    if (options?.transports && options.transports.length > 0) {
+      options.transports.forEach((transport) => {
+        transport.setup(this.executionContext, this.environment, this.globalLogOptions);
+        this.transports.push(transport);
+      });
+    } else {
+      const defaultTransport = new ConsoleTransport();
+      defaultTransport.setup(this.executionContext, this.environment, this.globalLogOptions);
+      this.transports.push(defaultTransport);
     }
+  }
 
-    public info(message: string, options?: LogOptions): void {
-        this.log('info', message, options);
-    }
+  public debug(message: string, options?: LogOptions): void {
+    this.log('debug', message, options);
+  }
 
-    private log(level: LogLevel, message: string, options?: LogOptions): void {
-        this.transports.forEach((transport) => {
-            transport.send(level, message, options);
-        });
-    }
+  public error(message: string, options?: LogOptions): void {
+    this.log('error', message, options);
+  }
 
-    public trace(message: string, options?: LogOptions): void {
-        this.log('trace', message, options);
-    }
+  public fatal(message: string, options?: LogOptions): void {
+    this.log('fatal', message, options);
+  }
 
-    public warn(message: string, options?: LogOptions): void {
-        this.log('warn', message, options);
-    }
+  public info(message: string, options?: LogOptions): void {
+    this.log('info', message, options);
+  }
 
-    public withOptions(options: LoggerOptions): ILogger {
-        return new Logger({
-            environment: options?.environment ?? this.environment,
-            globalLogOptions: options?.globalLogOptions
-                ? deepmerge(this.globalLogOptions, options?.globalLogOptions)
-                : this.globalLogOptions,
-            transports: deepmerge(this.transports, options?.transports ?? []),
-        });
-    }
+  private log(level: LogLevel, message: string, options?: LogOptions): void {
+    this.transports.forEach((transport) => {
+      transport.send(level, message, options);
+    });
+  }
+
+  public trace(message: string, options?: LogOptions): void {
+    this.log('trace', message, options);
+  }
+
+  public warn(message: string, options?: LogOptions): void {
+    this.log('warn', message, options);
+  }
+
+  public withOptions(options: LoggerOptions): ILogger {
+    return new Logger({
+      environment: options?.environment ?? this.environment,
+      globalLogOptions: options?.globalLogOptions
+        ? deepmerge(this.globalLogOptions, options?.globalLogOptions)
+        : this.globalLogOptions,
+      transports: deepmerge(this.transports, options?.transports ?? []),
+    });
+  }
 }

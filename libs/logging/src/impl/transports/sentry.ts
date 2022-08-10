@@ -110,11 +110,7 @@ export abstract class SentryTransport implements ITransport {
 		globalLogOptions: GlobalLogOptions
 	): void;
 
-	public setup(
-		executionContext: ExecutionContext,
-		environment: Environment,
-		globalLogOptions: GlobalLogOptions
-	): void {
+	public setup(executionContext: ExecutionContext, environment: Environment, globalLogOptions: GlobalLogOptions): void {
 		this.setupImpl(executionContext, environment, globalLogOptions);
 	}
 
