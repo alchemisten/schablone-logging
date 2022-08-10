@@ -1,0 +1,47 @@
+{
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/logging-transport-sentry-browser/src",
+	"projectType": "library",
+	"targets": {
+		"build": {
+			"executor": "@nrwl/js:tsc",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/libs/logging-transport-sentry-browser",
+				"main": "libs/logging-transport-sentry-browser/src/index.ts",
+				"tsConfig": "libs/logging-transport-sentry-browser/tsconfig.lib.json",
+				"assets": ["libs/logging-transport-sentry-browser/*.md"],
+				"updateBuildableProjectDepsInPackageJson": true,
+				"buildableProjectDepsInPackageJsonType": "dependencies"
+			}
+		},
+		"publish": {
+			"executor": "@nrwl/workspace:run-commands",
+			"options": {
+				"command": "node tools/scripts/publish.mjs logging-transport-sentry-browser {args.ver} {args.tag}"
+			},
+			"dependsOn": [
+				{
+					"projects": "self",
+					"target": "build"
+				}
+			]
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["libs/logging-transport-sentry-browser/**/*.ts"]
+			}
+		},
+		"test": {
+			"executor": "@nrwl/jest:jest",
+			"outputs": ["coverage/libs/logging-transport-sentry-browser"],
+			"options": {
+				"jestConfig": "libs/logging-transport-sentry-browser/jest.config.ts",
+				"passWithNoTests": true
+			}
+		}
+	},
+	"tags": []
+}

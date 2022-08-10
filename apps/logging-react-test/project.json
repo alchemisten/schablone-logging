@@ -1,0 +1,85 @@
+{
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/logging-react-test/src",
+	"projectType": "application",
+	"targets": {
+		"build": {
+			"executor": "@nrwl/web:webpack",
+			"outputs": ["{options.outputPath}"],
+			"defaultConfiguration": "production",
+			"options": {
+				"compiler": "babel",
+				"outputPath": "dist/apps/logging-react-test",
+				"index": "apps/logging-react-test/src/index.html",
+				"baseHref": "/",
+				"main": "apps/logging-react-test/src/main.tsx",
+				"polyfills": "apps/logging-react-test/src/polyfills.ts",
+				"tsConfig": "apps/logging-react-test/tsconfig.app.json",
+				"assets": [
+					"apps/logging-react-test/src/favicon.ico",
+					"apps/logging-react-test/src/assets"
+				],
+				"styles": [],
+				"scripts": [],
+				"webpackConfig": "@nrwl/react/plugins/webpack"
+			},
+			"configurations": {
+				"development": {
+					"extractLicenses": false,
+					"optimization": false,
+					"sourceMap": true,
+					"vendorChunk": true
+				},
+				"production": {
+					"fileReplacements": [
+						{
+							"replace": "apps/logging-react-test/src/environments/environment.ts",
+							"with": "apps/logging-react-test/src/environments/environment.prod.ts"
+						}
+					],
+					"optimization": true,
+					"outputHashing": "all",
+					"sourceMap": false,
+					"namedChunks": false,
+					"extractLicenses": true,
+					"vendorChunk": false
+				}
+			}
+		},
+		"serve": {
+			"executor": "@nrwl/web:dev-server",
+			"defaultConfiguration": "development",
+			"options": {
+				"buildTarget": "logging-react-test:build",
+				"hmr": true
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "logging-react-test:build:development"
+				},
+				"production": {
+					"buildTarget": "logging-react-test:build:production",
+					"hmr": false
+				}
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": [
+					"apps/logging-react-test/**/*.{ts,tsx,js,jsx}"
+				]
+			}
+		},
+		"test": {
+			"executor": "@nrwl/jest:jest",
+			"outputs": ["coverage/apps/logging-react-test"],
+			"options": {
+				"jestConfig": "apps/logging-react-test/jest.config.ts",
+				"passWithNoTests": true
+			}
+		}
+	},
+	"tags": []
+}
