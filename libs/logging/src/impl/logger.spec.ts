@@ -1,4 +1,4 @@
-import { Colored, ColorLevelMap, ILogger, LoggerFactory } from '@alchemisten/logging';
+import { Colored, ColorLevelMap, ILogger, LoggerFactory } from '../index';
 
 describe('Base Logger', () => {
   let logger: ILogger;
