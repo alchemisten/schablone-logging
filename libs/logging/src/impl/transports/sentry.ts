@@ -1,6 +1,6 @@
 import type SentryBrowser from '@sentry/browser';
 import type SentryNode from '@sentry/node';
-import { EventHint, Scope } from '@sentry/types';
+import { ScopeContext } from '@sentry/types';
 import { deepmerge } from 'deepmerge-ts';
 import { isRequiredEnvironment, SentryLogMap } from '../../constants';
 import {
@@ -51,38 +51,29 @@ export abstract class SentryTransport implements ITransport {
       return;
     }
 
-    const hint: EventHint = {};
     const meta: LogMetaInformation | undefined = deepmerge(this.transportLogOptions.meta, options?.meta);
-    if (meta) {
-      hint.data = meta;
-    }
-    if (options?.error) {
-      hint.originalException = options.error as Error;
+    const context: Partial<ScopeContext> = {
+      extra: meta,
+      level: SentryLogMap[level],
+    };
+    if (options?.tags) {
+      context.tags = SentryTransport.tagsArrayToRecord(options.tags);
     }
 
-    this.sentry.withScope((scope) => {
-      scope.setLevel(SentryLogMap[level]);
-      if (options?.tags) {
-        SentryTransport.setTagsOnScope(options.tags, scope);
-      }
-
-      switch (level) {
-        case 'fatal':
-          this.sentry.captureException(message, { extra: meta });
-          break;
-        case 'error':
-          this.sentry.captureException(message, { extra: meta });
-          break;
-        case 'warn':
-        case 'info':
-        case 'debug':
-        case 'trace':
-          this.sentry.captureMessage(message, SentryLogMap[level]); // TODO meta
-          break;
-        default:
-          break;
-      }
-    });
+    switch (level) {
+      case 'fatal':
+      case 'error':
+        this.sentry.captureException(options?.error ?? message, context);
+        break;
+      case 'warn':
+      case 'info':
+      case 'debug':
+      case 'trace':
+        this.sentry.captureMessage(message, context);
+        break;
+      default:
+        break;
+    }
 
     const callbackData: CallbackData = {
       level,
@@ -114,13 +105,11 @@ export abstract class SentryTransport implements ITransport {
     this.setupImpl(executionContext, environment, globalLogOptions);
   }
 
-  protected static setTagsOnScope(tags: string[], scope: Scope): void {
-    scope.setTags(
-      tags.reduce((all: { [key: string]: boolean }, tag): { [key: string]: boolean } => {
-        // eslint-disable-next-line no-param-reassign
-        all[tag] = true;
-        return all;
-      }, {})
-    );
+  protected static tagsArrayToRecord(tags: string[]): Record<string, string> {
+    return tags.reduce((all: { [key: string]: string }, tag): { [key: string]: string } => {
+      // eslint-disable-next-line no-param-reassign
+      all[tag] = 'Group';
+      return all;
+    }, {});
   }
 }
