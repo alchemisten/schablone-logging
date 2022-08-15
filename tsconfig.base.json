@@ -13,24 +13,15 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@alchemisten/logging": [
-        "libs/logging/src/index.ts"
-      ],
-      "@alchemisten/logging-transport-sentry-browser": [
-        "libs/logging-transport-sentry-browser/src/index.ts"
-      ]
+      "@alchemisten/logging": ["libs/logging/src/index.ts"],
+      "@alchemisten/logging-transport-sentry-browser": ["libs/logging-transport-sentry-browser/src/index.ts"],
+      "@alchemisten/logging-transport-sentry-node": ["libs/logging-transport-sentry-node/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

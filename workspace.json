@@ -4,6 +4,7 @@
   "projects": {
     "logging": "libs/logging",
     "logging-react-test": "apps/logging-react-test",
-    "logging-transport-sentry-browser": "libs/logging-transport-sentry-browser"
+    "logging-transport-sentry-browser": "libs/logging-transport-sentry-browser",
+    "logging-transport-sentry-node": "libs/logging-transport-sentry-node"
   }
 }
