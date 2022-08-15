@@ -1,7 +1,3 @@
 {
-  "name": "@alchemisten/logging-transport-sentry-browser",
-  "optionalDependencies": {
-    "@sentry/browser": "^7.9.0",
-    "@sentry/node": "^7.9.0"
-  }
+  "name": "@alchemisten/logging-transport-sentry-browser"
 }
