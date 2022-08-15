@@ -4,10 +4,20 @@ import { SentryBrowserTransport } from '@alchemisten/logging-transport-sentry-br
 const logger = LoggerFactory({
   environment: 'local',
   transports: [
-    new ConsoleTransport({}),
+    new ConsoleTransport({
+      transportLogOptions: {
+        tags: ['ConsoleTransport'],
+      },
+    }),
     new SentryBrowserTransport({
       sentryConfig: {
         dsn: 'https://2403a222dc334e5a8a123e037b8e2a9e@o564898.ingest.sentry.io/6634249',
+        initialScope: {
+          user: { id: '12345', email: 'bob@test.de', username: 'BobTester' },
+        },
+      },
+      transportLogOptions: {
+        tags: ['SentryTransport'],
       },
     }),
   ],
@@ -15,7 +25,13 @@ const logger = LoggerFactory({
 
 export function App() {
   const handleClick = (level: LogLevel) => {
-    const options: LogOptions = {};
+    const options: LogOptions = {
+      meta: {
+        name: 'Bob',
+        job: 'Tester',
+      },
+      tags: ['handleClick'],
+    };
     if (level === 'fatal' || level === 'error') {
       options.error = new Error(`A${level === 'error' ? 'n' : ''}${level === 'fatal' ? ' fatal' : ''} error`);
     }
