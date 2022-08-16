@@ -4,8 +4,8 @@ import type { NodeOptions } from '@sentry/node';
 
 export interface CallbackData {
   error?: unknown;
-  level?: string;
-  message?: string;
+  level: string;
+  message: string;
   meta?: unknown;
   objects?: unknown | unknown[];
 }
