@@ -17,7 +17,7 @@ localhost:4200. The example has the ability to log to a [sentry test project](ht
 
 ### Build
 Run `yarn build` to create a new build. A new build is automatically created
-when a branch is pushed to gitlab.
+when a branch is pushed to github.
 
 ### New release
 Merging to the `main` branch will automatically create a new release via
