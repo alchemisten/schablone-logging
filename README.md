@@ -1,5 +1,5 @@
 # Logging
-This is the monorepo for the `@alchemisten/logging package`.
+This is the monorepo for the `@schablone/logging` package.
 
 ## Content
 See the respective package documentation for usage details.

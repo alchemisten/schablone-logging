@@ -5,8 +5,8 @@ want to log Sentry from a browser.
 ## Usage
 
 ```typescript
-import LoggerFactory from '@alchemisten/logging';
-import { SentryBrowserTransport } from '@alchemisten/logging-transport-sentry-browser';
+import LoggerFactory from '@schablone/logging';
+import { SentryBrowserTransport } from '@schablone/logging-transport-sentry-browser';
 
 const logger = LoggerFactory({
   transports: [

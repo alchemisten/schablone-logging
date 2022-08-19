@@ -1,5 +1,5 @@
-import { ConsoleTransport, LoggerFactory, LogLevel, LogOptions } from '@alchemisten/logging';
-import { SentryBrowserTransport } from '@alchemisten/logging-transport-sentry-browser';
+import { ConsoleTransport, LoggerFactory, LogLevel, LogOptions } from '@schablone/logging';
+import { SentryBrowserTransport } from '@schablone/logging-transport-sentry-browser';
 
 const logger = LoggerFactory({
   environment: 'local',

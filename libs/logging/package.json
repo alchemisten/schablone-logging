@@ -1,5 +1,5 @@
 {
-  "name": "@alchemisten/logging",
+  "name": "@schablone/logging",
   "peerDependencies": {
     "@sentry/types": "^7.9.0"
   }

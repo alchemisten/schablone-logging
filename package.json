@@ -1,6 +1,7 @@
 {
-  "name": "logging",
+  "name": "schablone-logging",
   "version": "0.1.0",
+  "author": "Alchemisten AG",
   "license": "MIT",
   "scripts": {
     "start": "nx serve logging-react-test",

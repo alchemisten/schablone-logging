@@ -5,8 +5,8 @@ want to log Sentry from a node environment.
 ## Usage
 
 ```typescript
-import LoggerFactory from '@alchemisten/logging';
-import { SentryNodeTransport } from '@alchemisten/logging-transport-sentry-node';
+import LoggerFactory from '@schablone/logging';
+import { SentryNodeTransport } from '@schablone/logging-transport-sentry-node';
 
 const logger = LoggerFactory({
   transports: [

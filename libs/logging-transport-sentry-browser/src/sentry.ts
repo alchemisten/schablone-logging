@@ -4,7 +4,7 @@ import {
   GlobalLogOptions,
   SentryTransport,
   SentryTransportOptions,
-} from '@alchemisten/logging';
+} from '@schablone/logging';
 import * as SentryBrowser from '@sentry/browser';
 import { BrowserOptions } from '@sentry/browser';
 import { deepmerge } from 'deepmerge-ts';

@@ -4,12 +4,12 @@ level to the console by default. It can be configured via options at initializat
 including adding other transports than console logging.
 
 ## Installation
-`yarn add @alchemisten/logging` or `npm install @alchemisten/logging`
+`yarn add @schablone/logging` or `npm install @schablone/logging`
 
 ## Usage
 
 ```typescript
-import LoggerFactory from '@alchemisten/logging';
+import LoggerFactory from '@schablone/logging';
 
 const logger = LoggerFactory({
   environment: 'local',
