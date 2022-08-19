@@ -1,0 +1,35 @@
+name: Test
+"on":
+  push:
+    branches:
+      - develop
+      - feature/**
+      - hotfix/**
+      - renovate/**
+  pull_request:
+    types:
+      - opened
+      - synchronize
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn run build
+      - run: yarn run test
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn run build
+      - run: yarn run lint
