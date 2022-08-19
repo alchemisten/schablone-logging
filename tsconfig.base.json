@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@schablone/logging": ["libs/logging/src/index.ts"],
+      "@schablone/logging-transport-sentry-browser": ["libs/logging-transport-sentry-browser/src/index.ts"],
+      "@schablone/logging-transport-sentry-node": ["libs/logging-transport-sentry-node/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
