@@ -15,6 +15,12 @@ See the respective package documentation for usage details.
 Run `yarn start` for an example with a live reload server at
 localhost:4200. The example has the ability to log to a [sentry test project](https://sentry.io/organizations/alchemisten/issues/?project=6634249).
 
+### Dependencies
+As of now NX doesn't seem to handle dependencies from which only types are imported 
+correctly. Therefore, dependencies in the libs are hardcoded in their respective 
+package.json files and not automatically managed by NX. Beware when adding
+new dependencies or creating new libs.
+
 ### Build
 Run `yarn build` to create a new build. A new build is automatically created
 when a branch is pushed to github.

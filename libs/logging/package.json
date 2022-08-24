@@ -1,6 +1,8 @@
 {
   "name": "@schablone/logging",
-  "peerDependencies": {
-    "@sentry/types": "^7.9.0"
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "deepmerge-ts": "^4.2.1",
+    "tslib": "^2.3.0"
   }
 }

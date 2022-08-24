@@ -15,8 +15,7 @@
         "assets": [
           "libs/logging-transport-sentry-browser/*.md"
         ],
-        "updateBuildableProjectDepsInPackageJson": true,
-        "buildableProjectDepsInPackageJsonType": "dependencies"
+        "updateBuildableProjectDepsInPackageJson": false
       }
     },
     "publish": {
