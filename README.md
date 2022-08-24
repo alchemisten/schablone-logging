@@ -13,7 +13,12 @@ See the respective package documentation for usage details.
 
 ## Development
 Run `yarn start` for an example with a live reload server at
-localhost:4200. The example has the ability to log to a [sentry test project](https://sentry.io/organizations/alchemisten/issues/?project=6634249).
+localhost:4200. The example has the ability to log to a Sentry project. To enable
+the sentry transport in the example, provide the environment variable `NX_SENTRY_DSN`,
+e.g. by creating a `.local.env` file in the logging-react-test app and
+adding the entry:
+
+```NX_SENTRY_DSN=my-sentry-dsn```
 
 ### Dependencies
 As of now NX doesn't seem to handle dependencies from which only types are imported 
