@@ -1,7 +1,8 @@
-import { ConsoleTransport, LoggerFactory, LogLevel, LogOptions } from '@schablone/logging';
+import { ConsoleTransport, LoggerFactory, LoggerOptions, LogLevel, LogOptions } from '@schablone/logging';
 import { SentryBrowserTransport } from '@schablone/logging-transport-sentry-browser';
+import { environment } from '../environments/environment';
 
-const logger = LoggerFactory({
+const options: LoggerOptions = {
   environment: 'local',
   transports: [
     new ConsoleTransport({
@@ -9,9 +10,13 @@ const logger = LoggerFactory({
         tags: ['ConsoleTransport'],
       },
     }),
+  ],
+};
+if (environment.sentryDsn) {
+  options.transports?.push(
     new SentryBrowserTransport({
       sentryConfig: {
-        dsn: 'https://2403a222dc334e5a8a123e037b8e2a9e@o564898.ingest.sentry.io/6634249',
+        dsn: environment.sentryDsn,
         initialScope: {
           user: { id: '12345', email: 'bob@test.de', username: 'BobTester' },
         },
@@ -19,9 +24,13 @@ const logger = LoggerFactory({
       transportLogOptions: {
         tags: ['SentryTransport'],
       },
-    }),
-  ],
-});
+    })
+  );
+} else {
+  console.warn('No NX_SENTRY_DSN configured, sentry transport not added', environment);
+}
+
+const logger = LoggerFactory(options);
 
 export function App() {
   const handleClick = (level: LogLevel) => {
