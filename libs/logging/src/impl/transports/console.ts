@@ -7,6 +7,7 @@ import {
   LogLevel,
   LogMetaInformation,
   LogOptions,
+  LogTags,
   TransportOptions,
 } from '../../types';
 import { Colored, isRequiredEnvironment } from '../../constants';
@@ -42,13 +43,7 @@ export class ConsoleTransport implements ITransport {
       return;
     }
 
-    let tagList: string[] = [];
-    if (this.transportLogOptions.tags) {
-      tagList = [...this.transportLogOptions.tags];
-    }
-    if (options?.tags) {
-      tagList = [...tagList, ...options.tags];
-    }
+    const tagList = ConsoleTransport.getStringFromTags(Object.assign({}, this.transportLogOptions.tags, options?.tags));
     const tags =
       tagList.length > 0 ? `[${tagList.filter((value, index, self) => self.indexOf(value) === index).join('|')}] ` : '';
 
@@ -113,5 +108,12 @@ export class ConsoleTransport implements ITransport {
     this.environment = environment;
     this.executionContext = executionContext;
     this.transportLogOptions = deepmerge(globalLogOptions, this.transportLogOptions);
+  }
+
+  private static getStringFromTags(tags: LogTags): string[] {
+    return Object.entries(tags).reduce((all, [key, value]) => {
+      all.push(`${key}:${value}`);
+      return all;
+    }, [] as string[]);
   }
 }
