@@ -1,7 +1,6 @@
 import type SentryBrowser from '@sentry/browser';
 import type SentryNode from '@sentry/node';
 import { ScopeContext } from '@sentry/types';
-import { deepmerge } from 'deepmerge-ts';
 import { isRequiredEnvironment, SentryLogMap } from '../../constants';
 import {
   CallbackData,
@@ -15,6 +14,7 @@ import {
   SentryConfig,
   SentryTransportOptions,
 } from '../../types';
+import { deepmerge } from '../../util';
 
 export abstract class SentryTransport implements ITransport {
   protected environment: Environment = 'production';

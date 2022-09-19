@@ -1,4 +1,3 @@
-import { deepmerge } from 'deepmerge-ts';
 import {
   CallbackData,
   Environment,
@@ -11,6 +10,7 @@ import {
   TransportOptions,
 } from '../../types';
 import { Colored, isRequiredEnvironment } from '../../constants';
+import { deepmerge } from '../../util';
 
 export class ConsoleTransport implements ITransport {
   private environment: Environment = 'production';

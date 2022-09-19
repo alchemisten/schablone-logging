@@ -1,4 +1,5 @@
 import {
+  deepmerge,
   Environment,
   ExecutionContext,
   GlobalLogOptions,
@@ -7,7 +8,6 @@ import {
 } from '@schablone/logging';
 import * as SentryBrowser from '@sentry/browser';
 import { BrowserOptions } from '@sentry/browser';
-import { deepmerge } from 'deepmerge-ts';
 
 export class SentryBrowserTransport extends SentryTransport {
   public constructor(options: SentryTransportOptions) {
