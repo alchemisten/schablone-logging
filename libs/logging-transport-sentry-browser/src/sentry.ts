@@ -26,7 +26,7 @@ export class SentryBrowserTransport extends SentryTransport {
     this.sentry.init(deepmerge({ environment: this.environment }, this.sentryConfig as BrowserOptions));
     this.sentry.configureScope((scope) => {
       if (this.transportLogOptions.tags) {
-        scope.setTags(SentryTransport.tagsArrayToRecord(this.transportLogOptions.tags));
+        scope.setTags(this.transportLogOptions.tags);
       }
     });
   }

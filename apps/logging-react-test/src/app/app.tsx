@@ -4,10 +4,15 @@ import { environment } from '../environments/environment';
 
 const options: LoggerOptions = {
   environment: 'local',
+  globalLogOptions: {
+    tags: {
+      app: 'LoggerTest',
+    },
+  },
   transports: [
     new ConsoleTransport({
       transportLogOptions: {
-        tags: ['ConsoleTransport'],
+        tags: { transport: 'ConsoleTransport' },
       },
     }),
   ],
@@ -22,7 +27,7 @@ if (environment.sentryDsn) {
         },
       },
       transportLogOptions: {
-        tags: ['SentryTransport'],
+        tags: { transport: 'SentryTransport' },
       },
     })
   );
@@ -39,7 +44,7 @@ export function App() {
         name: 'Bob',
         job: 'Tester',
       },
-      tags: ['handleClick'],
+      tags: { function: 'handleClick' },
     };
     if (level === 'fatal' || level === 'error') {
       options.error = new Error(`A${level === 'error' ? 'n' : ''}${level === 'fatal' ? ' fatal' : ''} error`);

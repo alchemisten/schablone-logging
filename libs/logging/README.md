@@ -22,7 +22,7 @@ const logger = LoggerFactory({
       name: 'Bob',
       job: 'Tester',
     },
-    tags: ['GlobalTag'],
+    tags: { origin: 'GlobalOptions' },
   },
 });
 logger.debug("This is a debug message");
@@ -36,9 +36,9 @@ initialization. The object can have the following optional properties
 * `globalLogOptions` GlobalLogOptions (undefined) An options object containing
   configuration for the logged messages. Options set here will be applied to
   all transports and logs and merged with their respective log options.
-  * `tags`: string[] (undefined): A list of tags help to group log messages. How the
+  * `tags`: Record<string, string> (undefined): A list of tags help to group log messages. How the
     tags are used depends on the transports. Tags supplied in individual log message 
-    options will be concatenated with these global tags and filtered to be unique.
+    options will be concatenated with these global tags and filtered to be unique by key.
   * `meta`: Record<string, unknown> (undefined): An object containing any additional
     data. How the meta information will be made available depends on the transport.
   * `callback`: (data: CallbackData): void callback that will be called by each

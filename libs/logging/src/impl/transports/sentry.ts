@@ -57,7 +57,7 @@ export abstract class SentryTransport implements ITransport {
       level: SentryLogMap[level],
     };
     if (options?.tags) {
-      context.tags = SentryTransport.tagsArrayToRecord(options.tags);
+      context.tags = options.tags;
     }
 
     switch (level) {
@@ -103,13 +103,5 @@ export abstract class SentryTransport implements ITransport {
 
   public setup(executionContext: ExecutionContext, environment: Environment, globalLogOptions: GlobalLogOptions): void {
     this.setupImpl(executionContext, environment, globalLogOptions);
-  }
-
-  protected static tagsArrayToRecord(tags: string[]): Record<string, string> {
-    return tags.reduce((all: { [key: string]: string }, tag): { [key: string]: string } => {
-      // eslint-disable-next-line no-param-reassign
-      all[tag] = 'Group';
-      return all;
-    }, {});
   }
 }

@@ -28,11 +28,13 @@ export type LogCallback = (data: CallbackData) => void;
 
 export type LogMetaInformation = Record<string, unknown>;
 
+export type LogTags = Record<string, string>;
+
 export interface LogOptions {
   callback?: LogCallback;
   meta?: LogMetaInformation;
   objects?: unknown | unknown[];
-  tags?: string[];
+  tags?: LogTags;
   error?: unknown;
 }
 
