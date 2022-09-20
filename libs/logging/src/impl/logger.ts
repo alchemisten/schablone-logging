@@ -1,4 +1,3 @@
-import { deepmerge } from 'deepmerge-ts';
 import {
   Environment,
   ExecutionContext,
@@ -10,6 +9,7 @@ import {
   LogOptions,
 } from '../types';
 import { ConsoleTransport } from './transports';
+import { deepmerge } from '../util';
 
 export class Logger implements ILogger {
   private readonly environment: Environment = 'production';
@@ -78,7 +78,7 @@ export class Logger implements ILogger {
       globalLogOptions: options?.globalLogOptions
         ? deepmerge(this.globalLogOptions, options?.globalLogOptions)
         : this.globalLogOptions,
-      transports: deepmerge(this.transports, options?.transports ?? []),
+      transports: options.transports ?? this.transports,
     });
   }
 }
