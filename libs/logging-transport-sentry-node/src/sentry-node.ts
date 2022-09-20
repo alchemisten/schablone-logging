@@ -1,4 +1,5 @@
 import {
+  deepmerge,
   Environment,
   ExecutionContext,
   GlobalLogOptions,
@@ -7,7 +8,6 @@ import {
 } from '@schablone/logging';
 import * as SentryNode from '@sentry/node';
 import { NodeOptions } from '@sentry/node';
-import { deepmerge } from 'deepmerge-ts';
 
 export class SentryNodeTransport extends SentryTransport {
   public constructor(options: SentryTransportOptions) {
@@ -26,7 +26,7 @@ export class SentryNodeTransport extends SentryTransport {
     this.sentry.init(deepmerge({ environment: this.environment }, this.sentryConfig as NodeOptions));
     this.sentry.configureScope((scope) => {
       if (this.transportLogOptions.tags) {
-        scope.setTags(SentryTransport.tagsArrayToRecord(this.transportLogOptions.tags));
+        scope.setTags(this.transportLogOptions.tags);
       }
     });
   }

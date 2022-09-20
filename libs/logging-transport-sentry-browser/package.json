@@ -3,7 +3,6 @@
   "dependencies": {
     "@schablone/logging": "^1.0.2",
     "@sentry/browser": "^7.9.0",
-    "deepmerge-ts": "^4.2.1",
     "tslib": "^2.3.0"
   }
 }
