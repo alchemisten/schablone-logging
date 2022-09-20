@@ -9,7 +9,7 @@
     "test": "nx run-many --target=test --all",
     "lint": "nx run-many --target=lint --all"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@sentry/browser": "^7.9.0",
     "@sentry/node": "^7.9.0",
