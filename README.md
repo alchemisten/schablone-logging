@@ -1,11 +1,14 @@
 # Logging
-This is the monorepo for the `@schablone/logging` package.
+This is the monorepo for the `@schablone/logging` package. It provides a logger 
+that can be configured based on the current environment. With this you can for 
+example only log traces and debug statements on the development server without 
+changing any code.
 
 ## Content
 See the respective package documentation for usage details.
 
 * [`logging`](libs/logging): Base package containing all transports that do not require any
-  additional dependencies.
+  additional dependencies. This is the only package required for basic console logging.
 * [`logging-transport-sentry-browser`](libs/logging-transport-sentry-browser): Sentry transport implementation for the
   browser. Only required if logs should be sent to Sentry from a browser.
 * [`logging-transport-sentry-node`](libs/logging-transport-sentry-node): Sentry transport implementation for node. 
