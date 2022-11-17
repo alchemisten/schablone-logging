@@ -88,7 +88,7 @@ export class ConsoleTransport implements ITransport {
       level,
       message,
     };
-    if (meta) {
+    if (meta && Object.keys(meta).length > 0) {
       callbackData.meta = meta;
     }
     if (options?.error) {
