@@ -55,7 +55,7 @@ export class ConsoleTransport implements ITransport {
 
     const messageParts: [unknown] = [color(log)];
     if (options?.objects) {
-      messageParts.push(options.objects);
+      messageParts.push(this.executionContext !== 'browser' ? JSON.stringify(options.objects) : options.objects);
     }
     if (options?.error) {
       messageParts.push(options.error);
