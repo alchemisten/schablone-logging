@@ -55,7 +55,7 @@ export class ConsoleTransport implements ITransport {
 
     const messageParts: [unknown] = [color(log)];
     if (options?.objects) {
-      messageParts.push(this.executionContext !== 'browser' ? JSON.stringify(options.objects) : options.objects);
+      messageParts.push(this.getLoggableObjects(options.objects));
     }
     if (options?.error) {
       messageParts.push(options.error);
@@ -115,5 +115,13 @@ export class ConsoleTransport implements ITransport {
       all.push(`${key}:${value}`);
       return all;
     }, [] as string[]);
+  }
+
+  private getLoggableObjects(objects: unknown | unknown[]): string | unknown | unknown[] {
+    if (this.executionContext !== 'browser' && Object.prototype.toString.call(objects) !== '[object String]') {
+      return JSON.stringify(objects);
+    }
+
+    return objects;
   }
 }
