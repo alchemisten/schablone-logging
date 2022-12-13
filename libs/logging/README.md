@@ -30,7 +30,7 @@ logger.debug("This is a debug message");
 
 ### Parameters
 The `LoggerFactory` object can receive an optional object as a parameter upon
-initialization. The object can have the following optional properties
+initialization. The object can have the following optional properties.
 * `environment` string ('production') Type of the environment the
   application is running on. Accepts 'local', 'develop', 'staging' and 'production'.
 * `globalLogOptions` GlobalLogOptions (undefined) An options object containing
@@ -40,7 +40,8 @@ initialization. The object can have the following optional properties
     tags are used depends on the transports. Tags supplied in individual log message 
     options will be concatenated with these global tags and filtered to be unique by key.
   * `meta`: Record<string, unknown> (undefined): An object containing any additional
-    data. How the meta information will be made available depends on the transport.
+    data. How the meta information will be made available depends on the transport, e.g.
+    it is not logged in the console transport, but passed to the console transport callback.
   * `callback`: (data: CallbackData): void callback that will be called by each
     transport after logging a message. Global callbacks will be overridden by
     callbacks in individual log message options.
@@ -82,7 +83,7 @@ Writes a message at the ERROR level. Used for errors that inhibit parts
 of an applications normals functionality, contains a stacktrace.
 
 #### `fatal(message: string, options?: LogOptions): void`
-Writes a message at the FATAL level. Used for error the application 
+Writes a message at the FATAL level. Used for errors the application 
 can't recover from, contains a stacktrace.
 
 #### `withOptions(options: LoggerOptions): ILogger`
