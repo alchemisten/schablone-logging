@@ -137,8 +137,8 @@ available in the callback.
 
 In addition to the default initialization options, the object passed at the
 SentryTransport's initialization needs a SentryConfig. This can be a
-BrowserOptions or NodeOptions object and needs to supply a dsn. See the 
-SentryNodeTransport or SentryBrowserTransport packages for examples or 
+BrowserOptions or NodeOptions object and needs to supply a dsn. See the
+SentryNodeTransport or SentryBrowserTransport packages for examples or
 [Sentry documentation](https://docs.sentry.io/platforms/javascript/configuration/options/) for the full details.
 
 Default EnvironmentLevelMap:
