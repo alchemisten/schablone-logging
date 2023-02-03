@@ -1,6 +1,7 @@
-import { ConsoleTransport, LoggerFactory, LoggerOptions, LogLevel, LogOptions } from '@schablone/logging';
+import { ConsoleTransport, LoggerOptions, LogLevel, LogOptions } from '@schablone/logging';
 import { SentryBrowserTransport } from '@schablone/logging-transport-sentry-browser';
 import { environment } from '../environments/environment';
+import { LoggingProvider, useLogger } from '@schablone/logging-react';
 
 const options: LoggerOptions = {
   environment: 'local',
@@ -35,9 +36,9 @@ if (environment.sentryDsn) {
   console.warn('No NX_SENTRY_DSN configured, sentry transport not added', environment);
 }
 
-const logger = LoggerFactory(options);
-
 export function App() {
+  const { logger } = useLogger();
+
   const handleClick = (level: LogLevel) => {
     const options: LogOptions = {
       meta: {
@@ -56,29 +57,31 @@ export function App() {
       <button type="button" onClick={() => handleClick('trace')}>
         Trace
       </button>
-      ;
       <button type="button" onClick={() => handleClick('debug')}>
         Debug
       </button>
-      ;
       <button type="button" onClick={() => handleClick('info')}>
         Info
       </button>
-      ;
       <button type="button" onClick={() => handleClick('warn')}>
         Warning
       </button>
-      ;
       <button type="button" onClick={() => handleClick('error')}>
         Error
       </button>
-      ;
       <button type="button" onClick={() => handleClick('fatal')}>
         Fatal
       </button>
-      ;
     </>
   );
 }
 
-export default App;
+const AppRoot = () => {
+  return (
+    <LoggingProvider options={options}>
+      <App />
+    </LoggingProvider>
+  );
+};
+
+export default AppRoot;
