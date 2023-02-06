@@ -1,38 +1,42 @@
-import { createContext, FC, PropsWithChildren, useContext, useState } from 'react';
+import { createContext, FC, PropsWithChildren, useContext, useState, useMemo } from 'react';
 import { ILogger, LoggerFactory, LoggerOptions } from '@schablone/logging';
+
+const defaultLogger: ILogger = LoggerFactory({});
 
 export interface LoggingContextType {
   logger: ILogger;
-  replaceLogger: (options: LoggerOptions) => void;
+}
+
+const defaultContext: LoggingContextType = {
+  logger: defaultLogger;
 }
 
 export const LoggingContext = createContext<LoggingContextType | undefined>(undefined);
 
-const useCreateLoggingInfo = (options: LoggerOptions): LoggingContextType => {
-  const [logger, setLogger] = useState<ILogger>(LoggerFactory(options));
-  const replaceLogger = (options: LoggerOptions) => {
-    setLogger(LoggerFactory(options));
-  };
-
-  return {
-    logger,
-    replaceLogger,
-  };
-};
-
 export const useLogger = (): LoggingContextType => {
-  const context = useContext(LoggingContext);
-  if (context === undefined) {
-    throw new Error('useLogger must be used within a LoggingProvider');
+  const loggerContext = useContext(LoggingContext);
+  if(!loggerContext) {
+    return defaultContext;
   }
-  return context;
+  return loggerContext;
 };
 
-interface LoggingProviderProps extends PropsWithChildren {
+export interface LoggingProviderProps extends PropsWithChildren {
   options: LoggerOptions;
 }
 
 export const LoggingProvider: FC<LoggingProviderProps> = ({ children, options }) => {
-  const value = useCreateLoggingInfo(options);
+  const parentContext = useContext(LoggingContext);
+  
+  const value = useMemo(() => {
+    if(parentContext?.logger) {
+      return {
+        logger: parentContext.logger.withOptions(options);
+      }
+    }
+    
+    return defaultContext;
+  }, [parentContext?.logger]);
+  
   return <LoggingContext.Provider value={value}>{children}</LoggingContext.Provider>;
 };
