@@ -30,6 +30,12 @@ export const LoggingProvider: FC<LoggingProviderProps> = ({ children, options, l
   const parentContext = useContext(LoggingContext);
   
   const value = useMemo(() => {
+    if(logger) {
+      return {
+        logger
+      };
+    }
+    
     if(parentContext?.logger) {
       return {
         logger: parentContext.logger.withOptions(options);
@@ -37,7 +43,7 @@ export const LoggingProvider: FC<LoggingProviderProps> = ({ children, options, l
     }
     
     return defaultContext;
-  }, [parentContext?.logger]);
+  }, [logger, parentContext?.logger]);
   
-  return <LoggingContext.Provider value={logger ?? value}>{children}</LoggingContext.Provider>;
+  return <LoggingContext.Provider value={value}>{children}</LoggingContext.Provider>;
 };
