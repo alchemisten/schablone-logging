@@ -22,10 +22,11 @@ export const useLogger = (): LoggingContextType => {
 };
 
 export interface LoggingProviderProps extends PropsWithChildren {
+  logger?: ILogger;
   options: LoggerOptions;
 }
 
-export const LoggingProvider: FC<LoggingProviderProps> = ({ children, options }) => {
+export const LoggingProvider: FC<LoggingProviderProps> = ({ children, options, logger }) => {
   const parentContext = useContext(LoggingContext);
   
   const value = useMemo(() => {
@@ -38,5 +39,5 @@ export const LoggingProvider: FC<LoggingProviderProps> = ({ children, options })
     return defaultContext;
   }, [parentContext?.logger]);
   
-  return <LoggingContext.Provider value={value}>{children}</LoggingContext.Provider>;
+  return <LoggingContext.Provider value={logger ?? value}>{children}</LoggingContext.Provider>;
 };
