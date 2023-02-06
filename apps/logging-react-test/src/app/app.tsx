@@ -72,9 +72,54 @@ export function App() {
       <button type="button" onClick={() => handleClick('fatal')}>
         Fatal
       </button>
+
+      <div>
+        <h2>Lower level with own logger</h2>
+        <LowerLevelWithOwnLogger />
+      </div>
+
+      <div>
+        <h2>Lower level with parent logger</h2>
+        <LowerLevelWithParentLogger />
+      </div>
     </>
   );
 }
+
+const LowerLevelWithOwnLogger = () => {
+  const { logger } = useLogger();
+  const options: LoggerOptions = {
+    globalLogOptions: {
+      tags: {
+        level: 'lower',
+      },
+    },
+  };
+  const handleClick = () => {
+    logger.warn('Warning from the lower level with custom provider');
+  };
+
+  return (
+    <LoggingProvider options={options}>
+      <button type="button" onClick={handleClick}>
+        Warn Lower
+      </button>
+    </LoggingProvider>
+  );
+};
+
+const LowerLevelWithParentLogger = () => {
+  const { logger } = useLogger();
+  const handleClick = () => {
+    logger.warn('Warning from the lower level with parent logger');
+  };
+
+  return (
+    <button type="button" onClick={handleClick}>
+      Warn Lower
+    </button>
+  );
+};
 
 const AppRoot = () => {
   return (
