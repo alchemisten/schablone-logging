@@ -59,7 +59,9 @@ export abstract class SentryTransport implements ITransport {
       level: SentryLogMap[level],
     };
     if (options?.tags) {
-      context.tags = options.tags;
+      context.tags = { ...this.transportLogOptions.tags, ...options.tags };
+    } else {
+      context.tags = this.transportLogOptions.tags;
     }
 
     switch (level) {
