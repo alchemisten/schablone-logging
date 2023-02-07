@@ -3,7 +3,7 @@ import { SentryBrowserTransport } from '@schablone/logging-transport-sentry-brow
 import { environment } from '../environments/environment';
 import { LoggingProvider, useLogger } from '@schablone/logging-react';
 
-const options: LoggerOptions = {
+const mainLoggerOptions: LoggerOptions = {
   environment: 'local',
   globalLogOptions: {
     tags: {
@@ -19,7 +19,7 @@ const options: LoggerOptions = {
   ],
 };
 if (environment.sentryDsn) {
-  options.transports?.push(
+  mainLoggerOptions.transports?.push(
     new SentryBrowserTransport({
       sentryConfig: {
         dsn: environment.sentryDsn,
@@ -47,7 +47,7 @@ export function App() {
   };
 
   const handleClick = (level: LogLevel) => {
-    const options: LogOptions = {
+    const logClickOptions: LogOptions = {
       meta: {
         name: 'Bob',
         job: 'Tester',
@@ -55,9 +55,9 @@ export function App() {
       tags: { function: 'handleClick' },
     };
     if (level === 'fatal' || level === 'error') {
-      options.error = new Error(`A${level === 'error' ? 'n' : ''}${level === 'fatal' ? ' fatal' : ''} error`);
+      logClickOptions.error = new Error(`A${level === 'error' ? 'n' : ''}${level === 'fatal' ? ' fatal' : ''} error`);
     }
-    logger[level](`This is a ${level}`, options);
+    logger[level](`This is a ${level}`, logClickOptions);
   };
 
   return (
@@ -138,7 +138,7 @@ const AppRoot = () => {
         </button>
       </div>
 
-      <LoggingProvider options={options}>
+      <LoggingProvider options={mainLoggerOptions}>
         <App />
       </LoggingProvider>
     </div>
