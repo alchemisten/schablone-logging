@@ -41,7 +41,7 @@ export function App() {
   const lowerLevelOptions: LoggerOptions = {
     globalLogOptions: {
       tags: {
-        level: 'lower',
+        providerLevel: 'lower',
       },
     },
   };
