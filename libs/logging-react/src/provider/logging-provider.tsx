@@ -32,13 +32,9 @@ export const LoggingProvider: FC<LoggingProviderProps> = ({ children, options, l
       };
     }
 
-    if (parentContext?.logger) {
-      return {
-        logger: parentContext.logger.withOptions(options),
-      };
-    }
-
-    return defaultContext;
+    return {
+      logger: parentContext.logger.withOptions(options),
+    };
   }, [logger, options, parentContext?.logger]);
 
   return <LoggingContext.Provider value={value}>{children}</LoggingContext.Provider>;
