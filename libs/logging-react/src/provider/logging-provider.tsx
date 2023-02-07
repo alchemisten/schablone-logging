@@ -11,14 +11,10 @@ const defaultContext: LoggingContextType = {
   logger: defaultLogger,
 };
 
-export const LoggingContext = createContext<LoggingContextType | undefined>(undefined);
+export const LoggingContext = createContext<LoggingContextType>(defaultContext);
 
 export const useLogger = (): LoggingContextType => {
-  const loggerContext = useContext(LoggingContext);
-  if (!loggerContext) {
-    return defaultContext;
-  }
-  return loggerContext;
+  return useContext(LoggingContext);
 };
 
 export interface LoggingProviderProps extends PropsWithChildren {
