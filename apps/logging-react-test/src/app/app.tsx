@@ -38,6 +38,13 @@ if (environment.sentryDsn) {
 
 export function App() {
   const { logger } = useLogger();
+  const lowerLevelOptions: LoggerOptions = {
+    globalLogOptions: {
+      tags: {
+        level: 'lower',
+      },
+    },
+  };
 
   const handleClick = (level: LogLevel) => {
     const options: LogOptions = {
@@ -52,8 +59,10 @@ export function App() {
     }
     logger[level](`This is a ${level}`, options);
   };
+
   return (
     <>
+      <h2>Inside the App</h2>
       <button type="button" onClick={() => handleClick('trace')}>
         Trace
       </button>
@@ -75,7 +84,9 @@ export function App() {
 
       <div>
         <h2>Lower level with own logger</h2>
-        <LowerLevelWithOwnLogger />
+        <LoggingProvider options={lowerLevelOptions}>
+          <LowerLevelWithOwnLogger />
+        </LoggingProvider>
       </div>
 
       <div>
@@ -88,23 +99,14 @@ export function App() {
 
 const LowerLevelWithOwnLogger = () => {
   const { logger } = useLogger();
-  const options: LoggerOptions = {
-    globalLogOptions: {
-      tags: {
-        level: 'lower',
-      },
-    },
-  };
   const handleClick = () => {
     logger.warn('Warning from the lower level with custom provider');
   };
 
   return (
-    <LoggingProvider options={options}>
-      <button type="button" onClick={handleClick}>
-        Warn Lower
-      </button>
-    </LoggingProvider>
+    <button type="button" onClick={handleClick}>
+      Warn Lower
+    </button>
   );
 };
 
@@ -122,10 +124,24 @@ const LowerLevelWithParentLogger = () => {
 };
 
 const AppRoot = () => {
+  const { logger } = useLogger();
+  const handleClick = () => {
+    logger.warn('Logging without a provider');
+  };
+
   return (
-    <LoggingProvider options={options}>
-      <App />
-    </LoggingProvider>
+    <div>
+      <div>
+        <h2>Outer most layer</h2>
+        <button type="button" onClick={handleClick}>
+          Warn without provider
+        </button>
+      </div>
+
+      <LoggingProvider options={options}>
+        <App />
+      </LoggingProvider>
+    </div>
   );
 };
 
