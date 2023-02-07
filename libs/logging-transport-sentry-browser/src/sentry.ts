@@ -14,6 +14,14 @@ export class SentryBrowserTransport extends SentryTransport {
     super(options);
   }
 
+  public clone(): SentryBrowserTransport {
+    return new SentryBrowserTransport({
+      sentryConfig: deepmerge({}, this.sentryConfig),
+      environmentLevelMap: deepmerge({}, this.environmentLevelMap),
+      transportLogOptions: deepmerge({}, this.transportLogOptions),
+    });
+  }
+
   protected setupImpl(
     executionContext: ExecutionContext,
     environment: Environment,

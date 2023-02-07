@@ -23,6 +23,7 @@ export interface TransportOptions {
  * configuration and sending messages of all log levels.
  */
 export interface ITransport {
+  clone: () => ITransport;
   /**
    * Called if the transport is active in a logger and a message is logged.
    * Should implement the tranport's handling of the message.

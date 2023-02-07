@@ -46,6 +46,8 @@ export abstract class SentryTransport implements ITransport {
     }
   }
 
+  public abstract clone(): SentryTransport;
+
   public send(level: LogLevel, message: string, options?: LogOptions): void {
     if (!this.sentry || !isRequiredEnvironment(level, this.environmentLevelMap, this.environment)) {
       return;
