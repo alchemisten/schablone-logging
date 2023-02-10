@@ -46,6 +46,8 @@ export abstract class SentryTransport implements ITransport {
     }
   }
 
+  public abstract clone(): SentryTransport;
+
   public send(level: LogLevel, message: string, options?: LogOptions): void {
     if (!this.sentry || !isRequiredEnvironment(level, this.environmentLevelMap, this.environment)) {
       return;
@@ -57,7 +59,9 @@ export abstract class SentryTransport implements ITransport {
       level: SentryLogMap[level],
     };
     if (options?.tags) {
-      context.tags = options.tags;
+      context.tags = { ...this.transportLogOptions.tags, ...options.tags };
+    } else {
+      context.tags = this.transportLogOptions.tags;
     }
 
     switch (level) {

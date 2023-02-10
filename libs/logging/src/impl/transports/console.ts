@@ -38,6 +38,13 @@ export class ConsoleTransport implements ITransport {
     }
   }
 
+  public clone(): ConsoleTransport {
+    return new ConsoleTransport({
+      environmentLevelMap: deepmerge({}, this.environmentLevelMap),
+      transportLogOptions: deepmerge({}, this.transportLogOptions),
+    });
+  }
+
   public send(level: LogLevel, message: string, options?: LogOptions): void {
     if (!isRequiredEnvironment(level, this.environmentLevelMap, this.environment)) {
       return;

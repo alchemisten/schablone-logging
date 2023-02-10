@@ -132,7 +132,7 @@ abstract class and required either the [SentryNodeTransport](../logging-transpor
 
 The level, environment and meta information are all pushed to Sentry with
 each message. The tags array is converted to a Record, where each tag is a
-key with the value 'Group'. Objects are not send to Sentry, but are 
+key with the value 'Group'. Objects are not send to Sentry, but are
 available in the callback.
 
 In addition to the default initialization options, the object passed at the

@@ -1,8 +1,9 @@
-import { ConsoleTransport, LoggerFactory, LoggerOptions, LogLevel, LogOptions } from '@schablone/logging';
+import { ConsoleTransport, LoggerOptions, LogLevel, LogOptions } from '@schablone/logging';
 import { SentryBrowserTransport } from '@schablone/logging-transport-sentry-browser';
 import { environment } from '../environments/environment';
+import { LoggingProvider, useLogger } from '@schablone/logging-react';
 
-const options: LoggerOptions = {
+const mainLoggerOptions: LoggerOptions = {
   environment: 'local',
   globalLogOptions: {
     tags: {
@@ -18,7 +19,7 @@ const options: LoggerOptions = {
   ],
 };
 if (environment.sentryDsn) {
-  options.transports?.push(
+  mainLoggerOptions.transports?.push(
     new SentryBrowserTransport({
       sentryConfig: {
         dsn: environment.sentryDsn,
@@ -35,11 +36,18 @@ if (environment.sentryDsn) {
   console.warn('No NX_SENTRY_DSN configured, sentry transport not added', environment);
 }
 
-const logger = LoggerFactory(options);
-
 export function App() {
+  const { logger } = useLogger();
+  const lowerLevelOptions: LoggerOptions = {
+    globalLogOptions: {
+      tags: {
+        providerLevel: 'lower',
+      },
+    },
+  };
+
   const handleClick = (level: LogLevel) => {
-    const options: LogOptions = {
+    const logClickOptions: LogOptions = {
       meta: {
         name: 'Bob',
         job: 'Tester',
@@ -47,38 +55,94 @@ export function App() {
       tags: { function: 'handleClick' },
     };
     if (level === 'fatal' || level === 'error') {
-      options.error = new Error(`A${level === 'error' ? 'n' : ''}${level === 'fatal' ? ' fatal' : ''} error`);
+      logClickOptions.error = new Error(`A${level === 'error' ? 'n' : ''}${level === 'fatal' ? ' fatal' : ''} error`);
     }
-    logger[level](`This is a ${level}`, options);
+    logger[level](`This is a ${level}`, logClickOptions);
   };
+
   return (
     <>
+      <h2>Inside the App</h2>
       <button type="button" onClick={() => handleClick('trace')}>
         Trace
       </button>
-      ;
       <button type="button" onClick={() => handleClick('debug')}>
         Debug
       </button>
-      ;
       <button type="button" onClick={() => handleClick('info')}>
         Info
       </button>
-      ;
       <button type="button" onClick={() => handleClick('warn')}>
         Warning
       </button>
-      ;
       <button type="button" onClick={() => handleClick('error')}>
         Error
       </button>
-      ;
       <button type="button" onClick={() => handleClick('fatal')}>
         Fatal
       </button>
-      ;
+
+      <div>
+        <h2>Lower level with own logger</h2>
+        <LoggingProvider options={lowerLevelOptions}>
+          <LowerLevelWithOwnLogger />
+        </LoggingProvider>
+      </div>
+
+      <div>
+        <h2>Lower level with parent logger</h2>
+        <LowerLevelWithParentLogger />
+      </div>
     </>
   );
 }
 
-export default App;
+const LowerLevelWithOwnLogger = () => {
+  const { logger } = useLogger();
+  const handleClick = () => {
+    logger.warn('Warning from the lower level with custom provider');
+  };
+
+  return (
+    <button type="button" onClick={handleClick}>
+      Warn Lower
+    </button>
+  );
+};
+
+const LowerLevelWithParentLogger = () => {
+  const { logger } = useLogger();
+  const handleClick = () => {
+    logger.warn('Warning from the lower level with parent logger');
+  };
+
+  return (
+    <button type="button" onClick={handleClick}>
+      Warn Lower
+    </button>
+  );
+};
+
+const AppRoot = () => {
+  const { logger } = useLogger();
+  const handleClick = () => {
+    logger.warn('Logging without a provider');
+  };
+
+  return (
+    <div>
+      <div>
+        <h2>Outer most layer</h2>
+        <button type="button" onClick={handleClick}>
+          Warn without provider
+        </button>
+      </div>
+
+      <LoggingProvider options={mainLoggerOptions}>
+        <App />
+      </LoggingProvider>
+    </div>
+  );
+};
+
+export default AppRoot;

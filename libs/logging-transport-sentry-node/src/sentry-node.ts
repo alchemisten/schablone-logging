@@ -14,6 +14,14 @@ export class SentryNodeTransport extends SentryTransport {
     super(options);
   }
 
+  public clone(): SentryNodeTransport {
+    return new SentryNodeTransport({
+      sentryConfig: deepmerge({}, this.sentryConfig),
+      environmentLevelMap: deepmerge({}, this.environmentLevelMap),
+      transportLogOptions: deepmerge({}, this.transportLogOptions),
+    });
+  }
+
   protected setupImpl(
     executionContext: ExecutionContext,
     environment: Environment,
