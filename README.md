@@ -9,7 +9,7 @@ See the respective package documentation for usage details.
 
 * [`logging`](libs/logging): Base package containing all transports that do not require any
   additional dependencies. This is the only package required for basic console logging.
-* [`loggin-react`](libs/logging-react): React specific implementation of the logger, providing
+* [`loggin-react`](libs/logging-react): React specific implementation of the logger. It is providing
   ease-of-use tools. Helpful if the logger is to be used in a larger React application.
 * [`logging-transport-sentry-browser`](libs/logging-transport-sentry-browser): Sentry transport implementation for the
   browser. Only required if logs should be sent to Sentry from a browser.
