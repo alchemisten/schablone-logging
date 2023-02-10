@@ -24,6 +24,12 @@ export interface TransportOptions {
  */
 export interface ITransport {
   /**
+   * Called when a logger is derived from via its withOptions() function to
+   * copy the transports if no new transports are initialized. Should return a
+   * cloned copy of the transport with identical settings but no references.
+   */
+  clone: () => ITransport;
+  /**
    * Called if the transport is active in a logger and a message is logged.
    * Should implement the tranport's handling of the message.
    *

@@ -1,8 +1,8 @@
 {
-  "name": "@schablone/logging-transport-sentry-node",
+  "name": "@schablone/logging-react",
   "dependencies": {
     "@schablone/logging": "^1.1.0",
-    "@sentry/node": "^7.36.0",
+    "react": "^18.2.0",
     "tslib": "^2.5.0"
   }
 }

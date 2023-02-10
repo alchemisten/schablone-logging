@@ -19,6 +19,7 @@
     "baseUrl": ".",
     "paths": {
       "@schablone/logging": ["libs/logging/src/index.ts"],
+      "@schablone/logging-react": ["libs/logging-react/src/index.ts"],
       "@schablone/logging-transport-sentry-browser": ["libs/logging-transport-sentry-browser/src/index.ts"],
       "@schablone/logging-transport-sentry-node": ["libs/logging-transport-sentry-node/src/index.ts"]
     }

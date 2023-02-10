@@ -76,9 +76,14 @@ export class Logger implements ILogger {
     return new Logger({
       environment: options?.environment ?? this.environment,
       globalLogOptions: options?.globalLogOptions
-        ? deepmerge(this.globalLogOptions, options?.globalLogOptions)
-        : this.globalLogOptions,
-      transports: options.transports ?? this.transports,
+        ? deepmerge({}, this.globalLogOptions, options?.globalLogOptions)
+        : deepmerge({}, this.globalLogOptions),
+      transports:
+        options.transports ??
+        this.transports.reduce((acc: ITransport[], transport) => {
+          acc.push(transport.clone());
+          return acc;
+        }, []),
     });
   }
 }

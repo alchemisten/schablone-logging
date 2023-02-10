@@ -14,6 +14,14 @@ export class SentryBrowserTransport extends SentryTransport {
     super(options);
   }
 
+  public clone(): SentryBrowserTransport {
+    return new SentryBrowserTransport({
+      sentryConfig: deepmerge({}, this.sentryConfig),
+      environmentLevelMap: deepmerge({}, this.environmentLevelMap),
+      transportLogOptions: deepmerge({}, this.transportLogOptions),
+    });
+  }
+
   protected setupImpl(
     executionContext: ExecutionContext,
     environment: Environment,
@@ -24,10 +32,5 @@ export class SentryBrowserTransport extends SentryTransport {
     this.transportLogOptions = deepmerge(globalLogOptions, this.transportLogOptions);
     this.sentry = SentryBrowser;
     this.sentry.init(deepmerge({ environment: this.environment }, this.sentryConfig as BrowserOptions));
-    this.sentry.configureScope((scope) => {
-      if (this.transportLogOptions.tags) {
-        scope.setTags(this.transportLogOptions.tags);
-      }
-    });
   }
 }
