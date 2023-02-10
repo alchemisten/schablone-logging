@@ -14,10 +14,10 @@ jobs:
           node-version: 16
           cache: yarn
           always-auth: true
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN_TECHUSER }}" > ~/.npmrc
       - run: yarn install --frozen-lockfile
       - run: yarn run test
       - run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_TECHUSER }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_TECHUSER }}
