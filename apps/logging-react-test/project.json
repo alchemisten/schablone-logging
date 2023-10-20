@@ -1,13 +1,12 @@
 {
+  "name": "logging-react-test",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/logging-react-test/src",
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/web:webpack",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "executor": "@nx/web:webpack",
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
@@ -17,13 +16,10 @@
         "main": "apps/logging-react-test/src/main.tsx",
         "polyfills": "apps/logging-react-test/src/polyfills.ts",
         "tsConfig": "apps/logging-react-test/tsconfig.app.json",
-        "assets": [
-          "apps/logging-react-test/src/favicon.ico",
-          "apps/logging-react-test/src/assets"
-        ],
+        "assets": ["apps/logging-react-test/src/favicon.ico", "apps/logging-react-test/src/assets"],
         "styles": [],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
+        "webpackConfig": "@nx/react/plugins/webpack"
       },
       "configurations": {
         "development": {
@@ -49,7 +45,7 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/web:dev-server",
+      "executor": "@nx/web:dev-server",
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "logging-react-test:build",
@@ -66,21 +62,15 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/logging-react-test/**/*.{ts,tsx,js,jsx}"
-        ]
+        "lintFilePatterns": ["apps/logging-react-test/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/logging-react-test"
-      ],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/logging-react-test"],
       "options": {
         "jestConfig": "apps/logging-react-test/jest.config.ts",
         "passWithNoTests": true

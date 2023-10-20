@@ -1,10 +1,11 @@
 {
+  "name": "logging-transport-sentry-node",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/logging-transport-sentry-node/src",
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/logging-transport-sentry-node",
@@ -15,27 +16,26 @@
       }
     },
     "publish": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "@nx/workspace:run-commands",
       "options": {
         "command": "ts-node tools/scripts/publish.ts logging-transport-sentry-node {args.ver} {args.tag}"
       },
       "dependsOn": [
         {
-          "projects": "self",
           "target": "build"
         }
       ]
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/logging-transport-sentry-node/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/logging-transport-sentry-node"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/logging-transport-sentry-node"],
       "options": {
         "jestConfig": "libs/logging-transport-sentry-node/jest.config.ts",
         "passWithNoTests": true
