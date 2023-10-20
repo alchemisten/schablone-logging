@@ -5,60 +5,59 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nx/web:webpack",
+      "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "compiler": "babel",
-        "outputPath": "dist/apps/logging-react-test",
-        "index": "apps/logging-react-test/src/index.html",
-        "baseHref": "/",
-        "main": "apps/logging-react-test/src/main.tsx",
-        "polyfills": "apps/logging-react-test/src/polyfills.ts",
-        "tsConfig": "apps/logging-react-test/tsconfig.app.json",
-        "assets": ["apps/logging-react-test/src/favicon.ico", "apps/logging-react-test/src/assets"],
-        "styles": [],
-        "scripts": [],
-        "webpackConfig": "@nx/react/plugins/webpack"
+        "outputPath": "dist/apps/logging-react-test"
       },
       "configurations": {
         "development": {
-          "extractLicenses": false,
-          "optimization": false,
-          "sourceMap": true,
-          "vendorChunk": true
+          "mode": "development"
         },
         "production": {
-          "fileReplacements": [
-            {
-              "replace": "apps/logging-react-test/src/environments/environment.ts",
-              "with": "apps/logging-react-test/src/environments/environment.prod.ts"
-            }
-          ],
-          "optimization": true,
-          "outputHashing": "all",
-          "sourceMap": false,
-          "namedChunks": false,
-          "extractLicenses": true,
-          "vendorChunk": false
+          "mode": "production"
         }
       }
     },
     "serve": {
-      "executor": "@nx/web:dev-server",
+      "executor": "@nx/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "logging-react-test:build",
-        "hmr": true
+        "buildTarget": "logging-react-test:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "logging-react-test:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "logging-react-test:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "logging-react-test:build"
       },
       "configurations": {
         "development": {
           "buildTarget": "logging-react-test:build:development"
         },
         "production": {
-          "buildTarget": "logging-react-test:build:production",
-          "hmr": false
+          "buildTarget": "logging-react-test:build:production"
         }
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../coverage/apps/logging-react-test"
       }
     },
     "lint": {
@@ -68,12 +67,10 @@
         "lintFilePatterns": ["apps/logging-react-test/**/*.{ts,tsx,js,jsx}"]
       }
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/logging-react-test"],
+    "serve-static": {
+      "executor": "@nx/web:file-server",
       "options": {
-        "jestConfig": "apps/logging-react-test/jest.config.ts",
-        "passWithNoTests": true
+        "buildTarget": "logging-react-test:build"
       }
     }
   },
