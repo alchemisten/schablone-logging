@@ -57,5 +57,5 @@ try {
   console.error(`Error reading package.json file from library build output.`);
 }
 
-// Execute "yarn publish" to publish
-execSync(`yarn publish --new-version ${version} --non-interactive`);
+// Execute "npm publish" to publish
+execSync(`npm publish`);
