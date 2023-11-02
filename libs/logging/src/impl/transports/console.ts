@@ -52,9 +52,9 @@ export class ConsoleTransport implements ITransport {
 
     const tagList = ConsoleTransport.getStringFromTags(Object.assign({}, this.transportLogOptions.tags, options?.tags));
     const tags =
-      tagList.length > 0 ? `[${tagList.filter((value, index, self) => self.indexOf(value) === index).join('|')}] ` : '';
+      tagList.length > 0 ? ` [${tagList.filter((value, index, self) => self.indexOf(value) === index).join('|')}]` : '';
 
-    const log = `${tags}[${level.toUpperCase()}]: ${message}`;
+    const log = `[${level.toUpperCase()}]${tags}: ${message}`;
 
     const color = Colored[this.executionContext][level];
 
