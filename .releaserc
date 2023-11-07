@@ -13,7 +13,7 @@
     [
       "@semantic-release/exec",
       {
-        "publishCmd": "npx nx run-many --target=publish --ver=${nextRelease.version}"
+        "publishCmd": "npx nx run-many --targets=publish --ver=${nextRelease.version}"
       }
     ],
     [

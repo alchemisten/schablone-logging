@@ -11,8 +11,7 @@
         "outputPath": "dist/libs/logging-transport-sentry-node",
         "main": "libs/logging-transport-sentry-node/src/index.ts",
         "tsConfig": "libs/logging-transport-sentry-node/tsconfig.lib.json",
-        "assets": ["libs/logging-transport-sentry-node/*.md"],
-        "updateBuildableProjectDepsInPackageJson": false
+        "assets": ["libs/logging-transport-sentry-node/*.md"]
       }
     },
     "publish": {

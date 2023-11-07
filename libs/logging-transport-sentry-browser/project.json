@@ -11,8 +11,7 @@
         "outputPath": "dist/libs/logging-transport-sentry-browser",
         "main": "libs/logging-transport-sentry-browser/src/index.ts",
         "tsConfig": "libs/logging-transport-sentry-browser/tsconfig.lib.json",
-        "assets": ["libs/logging-transport-sentry-browser/*.md"],
-        "updateBuildableProjectDepsInPackageJson": false
+        "assets": ["libs/logging-transport-sentry-browser/*.md"]
       }
     },
     "publish": {

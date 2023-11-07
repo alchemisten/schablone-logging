@@ -24,16 +24,16 @@
   },
   "devDependencies": {
     "@babel/core": "^7.23.2",
-    "@nx/cypress": "17.0.0",
-    "@nx/devkit": "^17.0.0",
-    "@nx/eslint": "17.0.0",
-    "@nx/eslint-plugin": "17.0.0",
-    "@nx/jest": "17.0.0",
-    "@nx/js": "17.0.0",
-    "@nx/react": "17.0.0",
-    "@nx/vite": "^17.0.0",
-    "@nx/web": "^17.0.0",
-    "@nx/workspace": "17.0.0",
+    "@nx/cypress": "17.0.3",
+    "@nx/devkit": "17.0.3",
+    "@nx/eslint": "17.0.3",
+    "@nx/eslint-plugin": "17.0.3",
+    "@nx/jest": "17.0.3",
+    "@nx/js": "17.0.3",
+    "@nx/react": "17.0.3",
+    "@nx/vite": "17.0.3",
+    "@nx/web": "17.0.3",
+    "@nx/workspace": "17.0.3",
     "@saithodev/semantic-release-backmerge": "^3.2.1",
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
@@ -65,7 +65,7 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jsdom": "~22.1.0",
-    "nx": "^17.0.0",
+    "nx": "17.0.3",
     "prettier": "^2.8.8",
     "semantic-release": "^22.0.5",
     "ts-jest": "29.1.1",
@@ -78,3 +78,4 @@
     "vitest": "~0.32.0"
   }
 }
+
