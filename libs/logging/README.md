@@ -113,7 +113,7 @@ Each transport configuration object will at least accept the following options:
 
 ### Console transport
 Logs to the console. In a node environment the logs will be color coded. 
-Messages will be prepended by all tags and the level. Any objects or error 
+Messages will be prepended by the level and all tags. Any objects or error 
 will be appended to the message, while meta information is not displayed 
 and only available in the callback.
 

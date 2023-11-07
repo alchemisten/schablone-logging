@@ -1,8 +1,8 @@
 {
   "name": "@schablone/logging-transport-sentry-browser",
   "dependencies": {
-    "@schablone/logging": "^1.1.0",
-    "@sentry/browser": "^7.36.0",
-    "tslib": "^2.5.0"
+    "@schablone/logging": "__root_version__",
+    "@sentry/browser": "^7.74.1",
+    "tslib": "^2.6.2"
   }
 }

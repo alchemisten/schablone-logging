@@ -96,7 +96,7 @@ describe('Log options', () => {
       test: 'Tags',
     };
     logger.debug('Message', { tags });
-    expect(console.log).toHaveBeenCalledWith(color.debug('[app:Test|test:Tags] [DEBUG]: Message'));
+    expect(console.log).toHaveBeenCalledWith(color.debug('[DEBUG] [app:Test|test:Tags]: Message'));
   });
 
   test('Meta', async () => {
@@ -133,7 +133,7 @@ describe('Log options', () => {
     const callback = jest.fn();
     logger.error('An error', { objects: [a, b], meta, error: theError, tags, callback });
     expect(console.error).toHaveBeenCalledWith(
-      color.error('[app:Test|test:Tags] [ERROR]: An error'),
+      color.error('[ERROR] [app:Test|test:Tags]: An error'),
       '[{"name":"Bob","id":1234356},"A string"]',
       theError
     );

@@ -17,7 +17,7 @@ See the respective package documentation for usage details.
   Only required if logs should be sent to Sentry from a node environment.
 
 ## Development
-Run `yarn start` for an example with a live reload server at
+Run `npm start` for an example with a live reload server at
 localhost:4200. The example has the ability to log to a Sentry project. To enable
 the sentry transport in the example, provide the environment variable `NX_SENTRY_DSN`,
 e.g. by creating a `.local.env` file in the logging-react-test app and
@@ -32,7 +32,7 @@ package.json files and not automatically managed by NX. Beware when adding
 new dependencies or creating new libs.
 
 ### Build
-Run `yarn build` to create a new build. A new build is automatically created
+Run `npm run build` to create a new build. A new build is automatically created
 when a branch is pushed to github.
 
 ### New release

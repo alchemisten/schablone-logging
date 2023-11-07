@@ -1,8 +1,8 @@
 {
   "name": "@schablone/logging-react",
   "dependencies": {
-    "@schablone/logging": "^1.1.0",
+    "@schablone/logging": "__root_version__",
     "react": "^18.2.0",
-    "tslib": "^2.5.0"
+    "tslib": "^2.6.2"
   }
 }

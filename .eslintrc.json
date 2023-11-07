@@ -1,21 +1,12 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "**/*"
-  ],
-  "plugins": [
-    "@nrwl/nx"
-  ],
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nx"],
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx",
-        "*.js",
-        "*.jsx"
-      ],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
+        "@nx/enforce-module-boundaries": [
           "error",
           {
             "enforceBuildableLibDependency": true,
@@ -23,9 +14,7 @@
             "depConstraints": [
               {
                 "sourceTag": "*",
-                "onlyDependOnLibsWithTags": [
-                  "*"
-                ]
+                "onlyDependOnLibsWithTags": ["*"]
               }
             ]
           }
@@ -33,17 +22,9 @@
       }
     },
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/typescript",
-        "prettier"
-      ],
-      "plugins": [
-        "prettier"
-      ],
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nx/typescript", "prettier"],
+      "plugins": ["prettier"],
       "rules": {
         "import/prefer-default-export": "off",
         "no-await-in-loop": "off",
@@ -52,12 +33,7 @@
         "no-restricted-imports": [
           "error",
           {
-            "patterns": [
-              "@material-ui/core/*/*",
-              "!@material-ui/core/styles",
-              "@mui/core/*/*",
-              "!@mui/core/styles"
-            ]
+            "patterns": ["@material-ui/core/*/*", "!@material-ui/core/styles", "@mui/core/*/*", "!@mui/core/styles"]
           }
         ],
         "no-restricted-syntax": "off",
@@ -91,13 +67,8 @@
       }
     },
     {
-      "files": [
-        "*.js",
-        "*.jsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/javascript"
-      ],
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nx/javascript"],
       "rules": {}
     }
   ]
