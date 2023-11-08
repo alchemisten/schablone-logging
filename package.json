@@ -1,6 +1,6 @@
 {
   "name": "schablone-logging",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "author": "Alchemisten AG",
   "private": true,
   "license": "MIT",
@@ -78,4 +78,3 @@
     "vitest": "~0.32.0"
   }
 }
-
