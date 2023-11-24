@@ -4,5 +4,6 @@
     "@schablone/logging": "__root_version__",
     "react": "^18.2.0",
     "tslib": "^2.6.2"
-  }
+  },
+  "types": "./src/index.d.ts"
 }
