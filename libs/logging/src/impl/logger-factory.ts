@@ -1,5 +1,5 @@
 import { Logger } from './logger';
-import { ILogger, LoggerOptions } from '../types';
+import type { ILogger, LoggerOptions } from '../types';
 
 /**
  * Returns an instance of a logger, configured with the provided options.

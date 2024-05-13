@@ -1,13 +1,7 @@
-import {
-  deepmerge,
-  Environment,
-  ExecutionContext,
-  GlobalLogOptions,
-  SentryTransport,
-  SentryTransportOptions,
-} from '@schablone/logging';
+import type { Environment, ExecutionContext, GlobalLogOptions, SentryTransportOptions } from '@schablone/logging';
+import { deepmerge, SentryTransport } from '@schablone/logging';
 import * as SentryBrowser from '@sentry/browser';
-import { BrowserOptions } from '@sentry/browser';
+import type { BrowserOptions } from '@sentry/browser';
 
 export class SentryBrowserTransport extends SentryTransport {
   public constructor(options: SentryTransportOptions) {
@@ -25,7 +19,7 @@ export class SentryBrowserTransport extends SentryTransport {
   protected setupImpl(
     executionContext: ExecutionContext,
     environment: Environment,
-    globalLogOptions: GlobalLogOptions
+    globalLogOptions: GlobalLogOptions,
   ): void {
     this.environment = environment;
     this.executionContext = executionContext;

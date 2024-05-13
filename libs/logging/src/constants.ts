@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { Environment, ExecutionContextColorMap, LogLevel, SentryLogLevelMap } from './types';
+import type { Environment, ExecutionContextColorMap, LogLevel, SentryLogLevelMap } from './types';
 
 export const EnvironmentWeight: Record<Environment, number> = {
   production: 0,
@@ -41,7 +41,7 @@ export const SentryLogMap: SentryLogLevelMap = {
 export const isRequiredEnvironment = (
   level: LogLevel,
   environmentLevelMap: { [key in LogLevel]: Environment },
-  environment: Environment
+  environment: Environment,
 ): boolean => {
   return EnvironmentWeight[environmentLevelMap[level]] <= EnvironmentWeight[environment];
 };

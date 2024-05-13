@@ -1,4 +1,4 @@
-import {
+import type {
   CallbackData,
   Environment,
   ExecutionContext,
@@ -50,7 +50,7 @@ export class ConsoleTransport implements ITransport {
       return;
     }
 
-    const tagList = ConsoleTransport.getStringFromTags(Object.assign({}, this.transportLogOptions.tags, options?.tags));
+    const tagList = ConsoleTransport.getStringFromTags({ ...this.transportLogOptions.tags, ...options?.tags });
     const tags =
       tagList.length > 0 ? ` [${tagList.filter((value, index, self) => self.indexOf(value) === index).join('|')}]` : '';
 
