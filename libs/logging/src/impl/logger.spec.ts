@@ -9,6 +9,7 @@ describe('Base Logger', () => {
     console.warn = jest.fn();
     console.info = jest.fn();
     console.log = jest.fn();
+    console.debug = jest.fn();
     console.trace = jest.fn();
 
     color = Colored.node;
@@ -42,7 +43,7 @@ describe('Base Logger', () => {
 
   test('Debug', async () => {
     logger.debug('A debug message');
-    expect(console.log).toHaveBeenCalledWith(color.debug('[DEBUG]: A debug message'));
+    expect(console.debug).toHaveBeenCalledWith(color.debug('[DEBUG]: A debug message'));
   });
 
   test('Trace', async () => {
@@ -78,7 +79,7 @@ describe('Log options', () => {
     };
     const b = 'A string';
     logger.debug('Message', { objects: [a, b] });
-    expect(console.log).toHaveBeenCalledWith(
+    expect(console.debug).toHaveBeenCalledWith(
       color.debug('[DEBUG]: Message'),
       '[{"name":"Bob","id":1234356},"A string"]'
     );
@@ -96,7 +97,7 @@ describe('Log options', () => {
       test: 'Tags',
     };
     logger.debug('Message', { tags });
-    expect(console.log).toHaveBeenCalledWith(color.debug('[DEBUG] [app:Test|test:Tags]: Message'));
+    expect(console.debug).toHaveBeenCalledWith(color.debug('[DEBUG] [app:Test|test:Tags]: Message'));
   });
 
   test('Meta', async () => {
@@ -105,13 +106,13 @@ describe('Log options', () => {
       id: '',
     };
     logger.debug('Message', { meta });
-    expect(console.log).toHaveBeenCalledWith(color.debug('[DEBUG]: Message'));
+    expect(console.debug).toHaveBeenCalledWith(color.debug('[DEBUG]: Message'));
   });
 
   test('Callback', async () => {
     const callback = jest.fn();
     logger.debug('Message', { callback });
-    expect(console.log).toHaveBeenCalledWith(color.debug('[DEBUG]: Message'));
+    expect(console.debug).toHaveBeenCalledWith(color.debug('[DEBUG]: Message'));
     expect(callback).toHaveBeenCalledWith({ level: 'debug', message: 'Message' });
   });
 

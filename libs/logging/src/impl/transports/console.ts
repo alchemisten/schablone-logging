@@ -82,7 +82,7 @@ export class ConsoleTransport implements ITransport {
         console.info(...messageParts);
         break;
       case 'debug':
-        console.log(...messageParts);
+        console.debug(...messageParts);
         break;
       case 'trace':
         console.trace(...messageParts);
