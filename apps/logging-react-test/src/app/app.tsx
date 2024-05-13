@@ -1,7 +1,8 @@
-import { ConsoleTransport, LoggerOptions, LogLevel, LogOptions } from '@schablone/logging';
+import type { LoggerOptions, LogLevel, LogOptions } from '@schablone/logging';
+import { ConsoleTransport } from '@schablone/logging';
 import { SentryBrowserTransport } from '@schablone/logging-transport-sentry-browser';
-import { environment } from '../environments/environment';
 import { LoggingProvider, useLogger } from '@schablone/logging-react';
+import { environment } from '../environments/environment';
 
 const mainLoggerOptions: LoggerOptions = {
   environment: 'local',
@@ -30,13 +31,40 @@ if (environment.sentryDsn) {
       transportLogOptions: {
         tags: { transport: 'SentryTransport' },
       },
-    })
+    }),
   );
 } else {
+  // eslint-disable-next-line no-console
   console.warn('No NX_SENTRY_DSN configured, sentry transport not added', environment);
 }
 
-export function App() {
+const LowerLevelWithOwnLogger = () => {
+  const { logger } = useLogger();
+  const handleClick = () => {
+    logger.warn('Warning from the lower level with custom provider');
+  };
+
+  return (
+    <button type="button" onClick={handleClick}>
+      Warn Lower
+    </button>
+  );
+};
+
+const LowerLevelWithParentLogger = () => {
+  const { logger } = useLogger();
+  const handleClick = () => {
+    logger.warn('Warning from the lower level with parent logger');
+  };
+
+  return (
+    <button type="button" onClick={handleClick}>
+      Warn Lower
+    </button>
+  );
+};
+
+export const App = () => {
   const { logger } = useLogger();
   const lowerLevelOptions: LoggerOptions = {
     globalLogOptions: {
@@ -95,35 +123,9 @@ export function App() {
       </div>
     </>
   );
-}
-
-const LowerLevelWithOwnLogger = () => {
-  const { logger } = useLogger();
-  const handleClick = () => {
-    logger.warn('Warning from the lower level with custom provider');
-  };
-
-  return (
-    <button type="button" onClick={handleClick}>
-      Warn Lower
-    </button>
-  );
 };
 
-const LowerLevelWithParentLogger = () => {
-  const { logger } = useLogger();
-  const handleClick = () => {
-    logger.warn('Warning from the lower level with parent logger');
-  };
-
-  return (
-    <button type="button" onClick={handleClick}>
-      Warn Lower
-    </button>
-  );
-};
-
-const AppRoot = () => {
+export const AppRoot = () => {
   const { logger } = useLogger();
   const handleClick = () => {
     logger.warn('Logging without a provider');
@@ -144,5 +146,3 @@ const AppRoot = () => {
     </div>
   );
 };
-
-export default AppRoot;

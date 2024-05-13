@@ -70,24 +70,31 @@ export class ConsoleTransport implements ITransport {
 
     switch (level) {
       case 'fatal':
+        // eslint-disable-next-line no-console
         console.error(...messageParts);
         break;
       case 'error':
+        // eslint-disable-next-line no-console
         console.error(...messageParts);
         break;
       case 'warn':
+        // eslint-disable-next-line no-console
         console.warn(...messageParts);
         break;
       case 'info':
+        // eslint-disable-next-line no-console
         console.info(...messageParts);
         break;
       case 'debug':
+        // eslint-disable-next-line no-console
         console.debug(...messageParts);
         break;
       case 'trace':
+        // eslint-disable-next-line no-console
         console.trace(...messageParts);
         break;
       default:
+        // eslint-disable-next-line no-console
         console.log(...messageParts);
         break;
     }

@@ -3,5 +3,5 @@
 
 export const environment = {
   production: false,
-  sentryDsn: process.env['NX_SENTRY_DSN'],
+  sentryDsn: process.env.NX_SENTRY_DSN,
 };

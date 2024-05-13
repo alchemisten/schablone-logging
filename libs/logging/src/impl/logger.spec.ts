@@ -1,4 +1,6 @@
-import { Colored, ColorLevelMap, ILogger, LoggerFactory } from '../index';
+import type { ColorLevelMap, ILogger } from '../index';
+import { Colored, LoggerFactory } from '../index';
+/* eslint-disable no-console */
 
 describe('Base Logger', () => {
   let logger: ILogger;
@@ -81,7 +83,7 @@ describe('Log options', () => {
     logger.debug('Message', { objects: [a, b] });
     expect(console.debug).toHaveBeenCalledWith(
       color.debug('[DEBUG]: Message'),
-      '[{"name":"Bob","id":1234356},"A string"]'
+      '[{"name":"Bob","id":1234356},"A string"]',
     );
   });
 
@@ -136,7 +138,7 @@ describe('Log options', () => {
     expect(console.error).toHaveBeenCalledWith(
       color.error('[ERROR] [app:Test|test:Tags]: An error'),
       '[{"name":"Bob","id":1234356},"A string"]',
-      theError
+      theError,
     );
     expect(callback).toHaveBeenCalledWith({
       level: 'error',
