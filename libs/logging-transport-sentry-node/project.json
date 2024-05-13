@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/logging-transport-sentry-node/src",
   "projectType": "library",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
@@ -26,20 +27,14 @@
       ]
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/logging-transport-sentry-node/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/logging-transport-sentry-node"],
       "options": {
-        "jestConfig": "libs/logging-transport-sentry-node/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/logging-transport-sentry-node/jest.config.ts"
       }
     }
-  },
-  "tags": []
+  }
 }
