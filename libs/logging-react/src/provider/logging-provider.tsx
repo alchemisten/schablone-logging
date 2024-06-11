@@ -1,5 +1,7 @@
-import { createContext, FC, PropsWithChildren, useContext, useMemo } from 'react';
-import { ILogger, LoggerFactory, LoggerOptions } from '@schablone/logging';
+import type { FC, PropsWithChildren } from 'react';
+import { createContext, useContext, useMemo } from 'react';
+import type { ILogger, LoggerOptions } from '@schablone/logging';
+import { LoggerFactory } from '@schablone/logging';
 
 const defaultLogger: ILogger = LoggerFactory({});
 

@@ -15,10 +15,10 @@ describe('Extend', () => {
 
     expect(objA).toEqual(objC);
     expect(objA === objC).toBeFalsy();
-    expect(objC['foo']).toBe('bar');
-    expect(objC['bar'] === depth).toBeFalsy();
-    expect(objC['bar'].number).toEqual(2);
-    expect(objC['bar'].exists).toBeTruthy();
+    expect(objC.foo).toBe('bar');
+    expect(objC.bar === depth).toBeFalsy();
+    expect(objC.bar.number).toEqual(2);
+    expect(objC.bar.exists).toBeTruthy();
   });
 
   it('does a deep merge of two objects', () => {
@@ -41,14 +41,14 @@ describe('Extend', () => {
     };
     const objC = deepmerge(objA, objB);
 
-    expect(objC['foo']).toBe('bar');
-    expect(objC['bar']).toBe('foo');
-    expect(objC['bob']).toEqual(50);
-    expect(objC['stuff'] === depth).toBe(false);
-    expect(objC['stuff'].exists).toBeDefined();
-    expect(objC['stuff'].exists).toBeFalsy();
-    expect(objC['stuff'].number).toEqual(1);
-    expect(objC['stuff'].name).toBe('Here');
+    expect(objC.foo).toBe('bar');
+    expect(objC.bar).toBe('foo');
+    expect(objC.bob).toEqual(50);
+    expect(objC.stuff === depth).toBe(false);
+    expect(objC.stuff.exists).toBeDefined();
+    expect(objC.stuff.exists).toBeFalsy();
+    expect(objC.stuff.number).toEqual(1);
+    expect(objC.stuff.name).toBe('Here');
   });
 
   it('throws a RangeError when deep copying circular objects', () => {
@@ -79,8 +79,8 @@ describe('Extend', () => {
     };
 
     const objC = deepmerge(objA);
-    expect(objC['bob']).toEqual(objA.bob);
-    expect(objC['bob'] === objA.bob).toBe(false);
+    expect(objC.bob).toEqual(objA.bob);
+    expect(objC.bob === objA.bob).toBe(false);
   });
 
   it('ignores undefined or null objects', () => {
