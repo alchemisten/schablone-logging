@@ -1,8 +1,8 @@
 import type SentryBrowser from '@sentry/browser';
 import type SentryNode from '@sentry/node';
-import { ScopeContext } from '@sentry/types';
+import type { ScopeContext } from '@sentry/types';
 import { isRequiredEnvironment, SentryLogMap } from '../../constants';
-import {
+import type {
   CallbackData,
   Environment,
   ExecutionContext,
@@ -102,7 +102,7 @@ export abstract class SentryTransport implements ITransport {
   protected abstract setupImpl(
     executionContext: ExecutionContext,
     environment: Environment,
-    globalLogOptions: GlobalLogOptions
+    globalLogOptions: GlobalLogOptions,
   ): void;
 
   public setup(executionContext: ExecutionContext, environment: Environment, globalLogOptions: GlobalLogOptions): void {

@@ -1,4 +1,4 @@
-import {
+import type {
   CallbackData,
   Environment,
   ExecutionContext,
@@ -50,7 +50,7 @@ export class ConsoleTransport implements ITransport {
       return;
     }
 
-    const tagList = ConsoleTransport.getStringFromTags(Object.assign({}, this.transportLogOptions.tags, options?.tags));
+    const tagList = ConsoleTransport.getStringFromTags({ ...this.transportLogOptions.tags, ...options?.tags });
     const tags =
       tagList.length > 0 ? ` [${tagList.filter((value, index, self) => self.indexOf(value) === index).join('|')}]` : '';
 
@@ -70,24 +70,31 @@ export class ConsoleTransport implements ITransport {
 
     switch (level) {
       case 'fatal':
+        // eslint-disable-next-line no-console
         console.error(...messageParts);
         break;
       case 'error':
+        // eslint-disable-next-line no-console
         console.error(...messageParts);
         break;
       case 'warn':
+        // eslint-disable-next-line no-console
         console.warn(...messageParts);
         break;
       case 'info':
+        // eslint-disable-next-line no-console
         console.info(...messageParts);
         break;
       case 'debug':
-        console.log(...messageParts);
+        // eslint-disable-next-line no-console
+        console.debug(...messageParts);
         break;
       case 'trace':
+        // eslint-disable-next-line no-console
         console.trace(...messageParts);
         break;
       default:
+        // eslint-disable-next-line no-console
         console.log(...messageParts);
         break;
     }

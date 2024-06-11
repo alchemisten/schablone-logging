@@ -1,5 +1,5 @@
-import { Environment, GlobalLogOptions, LogOptions } from './base';
-import { ITransport } from './transports';
+import type { Environment, GlobalLogOptions, LogOptions } from './base';
+import type { ITransport } from './transports';
 
 /**
  * Function that accepts a message and optional log options and calls the

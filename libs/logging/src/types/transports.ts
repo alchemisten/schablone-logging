@@ -1,4 +1,11 @@
-import { Environment, EnvironmentLevelMap, ExecutionContext, GlobalLogOptions, LogLevel, LogOptions } from './base';
+import type {
+  Environment,
+  EnvironmentLevelMap,
+  ExecutionContext,
+  GlobalLogOptions,
+  LogLevel,
+  LogOptions,
+} from './base';
 
 /**
  * Configuration for a transport instance

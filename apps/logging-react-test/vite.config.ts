@@ -6,6 +6,14 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 export default ({ mode }: { mode: string }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return defineConfig({
+    root: __dirname,
+    build: {
+      outDir: '../../dist/apps/logging-react-test',
+      reportCompressedSize: true,
+      commonjsOptions: {
+        transformMixedEsModules: true,
+      },
+    },
     cacheDir: '../../node_modules/.vite/logging-react-test',
 
     define: {
@@ -30,6 +38,11 @@ export default ({ mode }: { mode: string }) => {
     // },
 
     test: {
+      reporters: ['default'],
+      coverage: {
+        reportsDirectory: '../../coverage/apps/logging-react-test',
+        provider: 'v8',
+      },
       globals: true,
       cache: {
         dir: '../../node_modules/.vitest',
