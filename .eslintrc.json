@@ -22,21 +22,14 @@
       }
     },
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
-      "extends": [
-        "plugin:@nx/typescript",
-        "@schablone/eslint-config",
-        "prettier"
-      ],
-      "plugins": [
-        "prettier"
-      ],
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nx/typescript", "@schablone/eslint-config", "prettier"],
+      "plugins": ["prettier"],
       "rules": {
         "import/no-extraneous-dependencies": "off",
-        "max-classes-per-file": "off"
+        "max-classes-per-file": "off",
+        "@typescript-eslint/no-extra-semi": "error",
+        "no-extra-semi": "off"
       },
       "parserOptions": {
         "project": ["tsconfig.*?.json"]
@@ -45,7 +38,10 @@
     {
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nx/javascript"],
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/no-extra-semi": "error",
+        "no-extra-semi": "off"
+      }
     }
   ]
 }
