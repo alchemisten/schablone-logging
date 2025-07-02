@@ -2,7 +2,7 @@
   "name": "@schablone/logging-react",
   "dependencies": {
     "@schablone/logging": "__root_version__",
-    "react": "^18.2.0",
+    "react": "^19.0.0",
     "tslib": "^2.6.2"
   },
   "types": "./src/index.d.ts"

@@ -1,6 +1,6 @@
 import type SentryBrowser from '@sentry/browser';
 import type SentryNode from '@sentry/node';
-import type { ScopeContext } from '@sentry/types';
+import type { ScopeContext } from '@sentry/core';
 import { isRequiredEnvironment, SentryLogMap } from '../../constants';
 import type {
   CallbackData,

@@ -51,7 +51,8 @@
         "production": {
           "buildTarget": "logging-react-test:build:production"
         }
-      }
+      },
+      "dependsOn": ["build"]
     },
     "test": {
       "executor": "@nx/vite:test",

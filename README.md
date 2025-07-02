@@ -25,6 +25,8 @@ adding the entry:
 
 ```NX_SENTRY_DSN=my-sentry-dsn```
 
+A minimum of Node.js 20.19 is required for the project since this is required by NX.
+
 ### Dependencies
 As of now NX doesn't seem to handle dependencies from which only types are imported 
 correctly. Therefore, dependencies in the libs are hardcoded in their respective 
