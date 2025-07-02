@@ -1,4 +1,4 @@
-import type { SeverityLevel } from '@sentry/types/types/severity';
+import type { SeverityLevel } from '@sentry/core';
 import type { BrowserOptions } from '@sentry/browser';
 import type { NodeOptions } from '@sentry/node';
 import type { LogLevel } from './base';
