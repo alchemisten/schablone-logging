@@ -78,5 +78,8 @@
     "vite-plugin-eslint": "^1.8.1",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=20.19.0"
   }
 }
