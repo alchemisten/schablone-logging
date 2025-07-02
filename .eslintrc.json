@@ -23,7 +23,7 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nx/typescript", "@schablone/eslint-config", "prettier"],
+      "extends": ["plugin:@nx/typescript", "@schablone/eslint-config", "plugin:prettier/recommended"],
       "plugins": ["prettier"],
       "rules": {
         "import/no-extraneous-dependencies": "off",
