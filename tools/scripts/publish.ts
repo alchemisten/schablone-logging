@@ -1,4 +1,4 @@
-import { readCachedProjectGraph } from '@nrwl/devkit';
+import { readCachedProjectGraph } from '@nx/devkit';
 import { execSync } from 'child_process';
 import { readFileSync, writeFileSync } from 'fs';
 
