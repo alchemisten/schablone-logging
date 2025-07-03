@@ -30,7 +30,10 @@
         "production": {
           "mode": "production"
         }
-      }
+      },
+      "dependsOn": [
+        { "target": "types" }
+      ]
     },
     "publish": {
       "executor": "nx:run-commands",
@@ -51,6 +54,12 @@
       "outputs": ["{workspaceRoot}/coverage/libs/logging-react"],
       "options": {
         "jestConfig": "libs/logging-react/jest.config.ts"
+      }
+    },
+    "types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p libs/logging-react/tsconfig.lib.json"
       }
     }
   }
